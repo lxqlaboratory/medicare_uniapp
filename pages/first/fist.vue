@@ -2,7 +2,7 @@
 	<view>
 		
 		
-	首页
+	shouye
 		
 		
 		
