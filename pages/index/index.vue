@@ -17,10 +17,10 @@
                success (res) {
 				  
                  login({code:res.code}).then(res2 => {
-                 	 if(res2.reCode === '0'){
-						 var date = new Date()
-						 date.setMinutes (date.getMinutes () + 8);
-						 getApp().globalData.dateTime = date;
+                 	 var date = new Date()
+                 	 date.setMinutes (date.getMinutes () + 8);
+                 	 getApp().globalData.dateTime = date;
+					 if(res2.reCode === '0'){
 						 getApp().globalData.vueSessionId = res2.sessionId
 						 console.log(getApp().globalData.vueSessionId)
                  		 uni.switchTab({

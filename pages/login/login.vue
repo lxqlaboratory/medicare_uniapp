@@ -24,8 +24,12 @@
 	</view>
 </template>
 <script>
-	import { login } from '@/api/login.js'
-	
+	import {
+		login
+	} from '@/api/login.js'
+	import {
+		getLoginPersonInfoByPerNum
+	} from '@/api/login.js'
 	export default {
 		data() {
 			return {
@@ -36,60 +40,67 @@
 			}
 		},
 		onLoad() {
-			
-		
+
+
 		},
 		methods: {
 			passwordF_B() {
 				this.hideEyes = !this.hideEyes;
 			},
-			formSubmit(e) {	
+			formSubmit(e) {
 				var that = this;
-				console.log(that.loginName);
-			wx.login({
-			  success (res) {
-				login({loginName: that.loginName,password:that.password,code:res.code}).then(res2 => {
-				 getApp().globalData.vueSessionId = res2.sessionId
-				 console.log(getApp().globalData.vueSessionId)
-				 if(res2.reCode === '0'){
-					 var date = new Date()
-					 date.setMinutes (date.getMinutes ()+8);
-					 getApp().globalData.dateTime = date;
-					 
+				getLoginPersonInfoByPerNum({
+					perNum: that.loginName
+				}).then(res => {
+				    
 					uni.showModal({
-					    title: '提示',
-					    content: '学工号：XXXXX',
-					    success: function (res) {
-					        if (res.confirm) {
-					            uni.switchTab({
-					            	url:'../first/fist'
-					            })
-					        } else if (res.cancel) {
-					           
-					        }
-					    }
+						title: '请确认信息',
+						content: '身份：'+res.data.perTypeCode +' ;  学院：'+res.data.collegeName +' ;  姓名：'+res.data.perName+' ;  学号：'+res.data.perNum,
+						success: function(res) {
+							if (res.confirm) {
+							wx.login({
+								success(res6) {
+									login({
+										loginName: that.loginName,
+										code: res6.code
+									}).then(res2 => {
+										getApp().globalData.vueSessionId = res2.sessionId
+										if (res2.reCode === '0') {
+											var date = new Date()
+											date.setMinutes(date.getMinutes() + 8);
+											getApp().globalData.dateTime = date;
+														uni.switchTab({
+															url: '../first/fist'
+														})
+												}	
+										else {
+											uni.showModal({
+												title: '提示',
+												content: '系统错误',
+												success: function(res) {
+													if (res.confirm) {
+														console.log('确定');
+													} else if (res.cancel) {
+														console.log('取消');
+													}
+												}
+											});
+										}
+									}).catch(err => {
+							
+									})
+								}
+							})
+							} else if (res.cancel) {			
+							}
+						}
 					});
-				
-			
-				 }else{
-					 uni.showModal({
-					     title: '提示',
-					     content: '绑定登录错误',
-					     success: function (res) {
-					         if (res.confirm) {
-					             console.log('确定');
-					         } else if (res.cancel) {
-					             console.log('取消');
-					         }
-					     }
-					 });
-				 }
-	
-			}).catch(err => {
-				
-			})
-			}
-			})
+					
+				}).catch(err => {
+								
+					
+				})
+
 			}
 		}
 	}
@@ -188,15 +199,14 @@
 	.owl-login.password .arms .arm.arm-r {
 		transform: translateY(-40px) translateX(-40px) scaleX(-1);
 	}
-	
+
 	.text-area {
 		display: flex;
 		justify-content: center;
 	}
-	
+
 	.title {
 		font-size: 36rpx;
 		color: #007AFF;
 	}
-
 </style>

@@ -93,7 +93,7 @@
 </template>
 
 <script>
-
+import { unbounding } from '@/api/login.js'
 	import uniSection from '@/components/uni-section/uni-section.vue'
 	export default {
       components: {
@@ -204,19 +204,22 @@
 			},
 			unboding() {
 				unbounding({}).then(res => {
-					uni.showModal({
-						title: '提示',
-						showCancel: false,
-						confirmColor: "#000000",
-						content: '解绑成功',
-						success: function(res) {
-							if (res.confirm) {
-								uni.navigateTo({
-									url: '../index/index'
-								})
-							}
+					if(res.re === 0){
+				uni.showModal({
+					title: '提示',
+					showCancel: false,
+					confirmColor: "#000000",
+					content: '解绑成功',
+					success: function(res) {
+						if (res.confirm) {
+							uni.navigateTo({
+								url: '../index/index'
+							})
 						}
-					});
+					}
+				});		
+					}
+				
 				}).catch(err => {
 
 				})

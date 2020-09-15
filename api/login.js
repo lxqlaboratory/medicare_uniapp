@@ -23,9 +23,9 @@ export function unbounding(data) {
 }
 
 
-export function judgePersonClub(data) {
+export function getLoginPersonInfoByPerNum(data) {
 	return request.request({
-		url: '/person/judgePersonClub',
+		url: '/auth/getLoginPersonInfoByPerNum',
 		method: 'POST',
 		data: data
 	})
