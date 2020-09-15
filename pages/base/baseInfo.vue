@@ -2,17 +2,11 @@
 	<view>
 		<view>
 			<uni-section title="个人基本信息" type="line" />
+			
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">姓名</view>
-					<view class="input-text">{{perName}}</view>
-				</view>
-				<view class="bottomLine"></view>
-			</view>
-			<view class="adBaseView">
-				<view class="adRowView">
-					<view class="headView">会员号</view>
-					<view class="input-text">{{memberNum}}</view>
+					<view class="input-text">杜东旭</view>
 				</view>
 				<view class="bottomLine"></view>
 			</view>
@@ -25,21 +19,6 @@
 				<view class="bottomLine"></view>
 			</view>
 
-			<view class="adBaseView">
-				<view class="adRowView">
-					<view class="headView">羽协会龄</view>
-					<view class="input-text">{{assoginage}}</view>
-				</view>
-				<view class="bottomLine"></view>
-			</view>
-       
-			<view class="adBaseView">
-				<view class="adRowView">
-					<view class="headView">会员有效期</view>
-					<view class="input-text">{{validTime}}</view>
-				</view>
-				<view class="bottomLine"></view>
-			</view>
              <view class="adBaseView">
              	<view class="adRowView">
              		<view class="headView">出生年月</view>
@@ -52,16 +31,6 @@
              	<view class="bottomLine" />
              </view>
 
-
-			<view class="adBaseView">
-				<view class="adRowView">
-					<view class="headView">羽毛球等级</view>
-					<view style="width: 70%;">
-						<picker class="input":value="badmintonLevelIndex" :range="badmintonLevelList" :range-key="'label'"  @change="bindchange" >
-							<view class="uni-input">{{badmintonLevelList[badmintonLevelIndex].label}}</view>
-						</picker>
-					</view>
-				</view>
 				<view class="bottomLine" />
 			</view>
 			<view class="adBaseView">
