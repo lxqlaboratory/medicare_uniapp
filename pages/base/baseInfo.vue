@@ -53,14 +53,7 @@
 				<view class="bottomLine" />
 			</view>
 
-			<view class="adBaseView">
-				<view class="adRowView">
-					<view class="headView">班级</view>
-					<view style="width: 70%;"><input class="input" v-model="classNumm" placeholder="请输入班级" /></view>
-				</view>
-				<view class="bottomLine" />
-			</view>
-			
+	
 			<button class="button-cell2" @click="submit">保存并提交</button> 
 			<button class="button-cell" @click="unboding">解除绑定</button>
 		</view>  

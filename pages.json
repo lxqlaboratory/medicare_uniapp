@@ -19,7 +19,19 @@
 			}
 		},
 		{
-			"path": "pages/physical/physicalRegistration",
+			"path": "pages/medical/medicalRegistration",
+			"style": {
+		
+			}
+		},
+		{
+			"path": "pages/medical/viewMedicalRegistration",
+			"style": {
+		
+			}
+		},
+		{
+			"path": "pages/medical/viewMedicalReport",
 			"style": {
 		
 			}

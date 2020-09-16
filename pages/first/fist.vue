@@ -69,7 +69,7 @@
 		justify-content: center;
 		align-items: center;
 		box-sizing: border-box;
-		width: 20%;
+		width: 30%;
 		height: 170upx;
 	}
 
