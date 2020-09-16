@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="text-area">
-			<text class="title">山东大学信息服务</text>
+			<text class="title">卫生与健康服务</text>
 		</view>
 		<view class="login-img">
 			<view class="owl-login" :class="hideEyes?'password':''">
@@ -55,7 +55,7 @@
 				    
 					uni.showModal({
 						title: '请确认信息',
-						content: '身份：'+res.data.perTypeCode +' ;  学院：'+res.data.collegeName +' ;  姓名：'+res.data.perName+' ;  学号：'+res.data.perNum,
+						content: '人员类型：'+res.data.perTypeCode+' ;  编号：'+res.data.perNum +' ;  姓名：'+res.data.perName +' ;  学院：'+res.data.collegeName,
 						success: function(res) {
 							if (res.confirm) {
 							wx.login({
