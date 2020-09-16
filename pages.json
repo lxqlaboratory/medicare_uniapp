@@ -19,19 +19,19 @@
 			}
 		},
 		{
-			"path": "pages/medical/medicalRegistration",
+			"path": "pages/medicare/physicalexaminationApply",
 			"style": {
 		
 			}
 		},
 		{
-			"path": "pages/medical/viewMedicalRegistration",
+			"path": "pages/medicare/physicalexaminationApplyView",
 			"style": {
 		
 			}
 		},
 		{
-			"path": "pages/medical/viewMedicalReport",
+			"path": "pages/medicare/physicalexaminationReportView",
 			"style": {
 		
 			}
