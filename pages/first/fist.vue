@@ -83,7 +83,7 @@
 	.core-item-name {
 		display: block;
 
-		font-size: 20upx;
+		font-size: 28upx;
 	}
 
 	.title {
