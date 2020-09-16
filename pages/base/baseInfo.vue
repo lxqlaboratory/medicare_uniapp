@@ -2,17 +2,11 @@
 	<view>
 		<view>
 			<uni-section title="个人基本信息" type="line" />
+			
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">姓名</view>
-					<view class="input-text">{{perName}}</view>
-				</view>
-				<view class="bottomLine"></view>
-			</view>
-			<view class="adBaseView">
-				<view class="adRowView">
-					<view class="headView">会员号</view>
-					<view class="input-text">{{memberNum}}</view>
+					<view style="width: 70%;"><input class="input" v-model="username" placeholder="请输入你的名字" /></view>
 				</view>
 				<view class="bottomLine"></view>
 			</view>
@@ -20,49 +14,36 @@
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">性别</view>
-					<view class="input-text">{{gendercode === '1' ? '男' : '女'}}</view>
+					<view class="uni-list">
+					            <view class="uni-list-cell">
+					                <view class="uni-list-cell-db">
+					                    <picker @change="bindPickerChange" :value="index" :range="array">
+					                        <view class="uni-input">{{array[index]}}</view>
+					                    </picker>
+					                </view>
+					            </view>
+					</view>	
 				</view>
-				<view class="bottomLine"></view>
+				<view class="bottomLine" />
 			</view>
 
-			<view class="adBaseView">
-				<view class="adRowView">
-					<view class="headView">羽协会龄</view>
-					<view class="input-text">{{assoginage}}</view>
-				</view>
-				<view class="bottomLine"></view>
-			</view>
-       
-			<view class="adBaseView">
-				<view class="adRowView">
-					<view class="headView">会员有效期</view>
-					<view class="input-text">{{validTime}}</view>
-				</view>
-				<view class="bottomLine"></view>
-			</view>
              <view class="adBaseView">
              	<view class="adRowView">
-             		<view class="headView">出生年月</view>
-             		
-             			<picker mode="date" :value="perBirthday" :start="startDate" :end="endDate" @change="bindDateChange">
-             				<view>{{perBirthday}}</view>
-             			</picker>
-             		
+             		<view class="headView">出生年月</view>    		
+					 <view class="uni-list">
+					            <view class="uni-list-cell">
+					                <view class="uni-list-cell-db">
+					                    <picker mode="date" :value="date" :start="startDate" :end="endDate" @change="bindDateChange">
+					                        <view class="uni-input">{{date}}</view>
+					                    </picker>
+					                </view>
+					            </view>
+					</view>
              	</view>
              	<view class="bottomLine" />
              </view>
 
-
-			<view class="adBaseView">
-				<view class="adRowView">
-					<view class="headView">羽毛球等级</view>
-					<view style="width: 70%;">
-						<picker class="input":value="badmintonLevelIndex" :range="badmintonLevelList" :range-key="'label'"  @change="bindchange" >
-							<view class="uni-input">{{badmintonLevelList[badmintonLevelIndex].label}}</view>
-						</picker>
-					</view>
-				</view>
-				<view class="bottomLine" />
+				
 			</view>
 			<view class="adBaseView">
 				<view class="adRowView">
@@ -79,16 +60,10 @@
 				</view>
 				<view class="bottomLine" />
 			</view>
-			<view class="adBaseView">
-				<view class="adRowView">
-					<view class="headView">Logo</view>
-					<view style="width: 70%;"><input class="input" v-model="logo" placeholder="请输入Logo" /></view>
-				</view>
-				<view class="bottomLine" />
-			</view>
-			<button class="button-cell2" @click="submit">保存并提交</button>
-		</view>
-		<button class="button-cell" @click="unboding">解除绑定</button>
+			
+			<button class="button-cell2" @click="submit">保存并提交</button> 
+			<button class="button-cell" @click="unboding">解除绑定</button>
+		</view>  
 	</view>
 </template>
 
@@ -104,6 +79,8 @@ import { unbounding } from '@/api/login.js'
 				format: true
 			})
 			return {
+				array: ['男', '女'],
+				index: 0,
 				date: currentDate,
 				perName: '',
 				perIdCard: '',
@@ -147,9 +124,12 @@ import { unbounding } from '@/api/login.js'
 			}
 		},
 		methods: {
-			bindDateChange(e){
-				this.perBirthday = e.target.value
-			},
+			bindPickerChange: function(e) {
+			            this.index = e.target.value
+			        },
+			bindDateChange: function(e) {
+			            this.date = e.target.value
+			        },
 			bindchange(e) {
 				this.badmintonLevelIndex = e.target.value
 				this.levelCode = this.badmintonLevelList[this.badmintonLevelIndex].value
@@ -224,21 +204,21 @@ import { unbounding } from '@/api/login.js'
 
 				})
 			},
-			getDate(type) {
-				const date = new Date();
-				let year = date.getFullYear();
-				let month = date.getMonth() + 1;
-				let day = date.getDate();
+			 getDate(type) {
+			            const date = new Date();
+			            let year = date.getFullYear();
+			            let month = date.getMonth() + 1;
+			            let day = date.getDate();
 			
-				if (type === 'start') {
-					year = year - 60;
-				} else if (type === 'end') {
-					year = year + 2;
-				}
-				month = month > 9 ? month : '0' + month;;
-				day = day > 9 ? day : '0' + day;
-				return `${year}-${month}-${day}`;
-			}
+			            if (type === 'start') {
+			                year = year - 60;
+			            } else if (type === 'end') {
+			                year = year + 2;
+			            }
+			            month = month > 9 ? month : '0' + month;;
+			            day = day > 9 ? day : '0' + day;
+			            return `${year}-${month}-${day}`;
+			        }
 		}
 	}
 </script>

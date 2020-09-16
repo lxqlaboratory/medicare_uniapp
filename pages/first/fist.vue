@@ -1,5 +1,6 @@
 <template>
 	<view>
+<<<<<<< HEAD
 
 		<view class="main-core">
 
@@ -15,6 +16,20 @@
 
 
 
+=======
+		
+		
+	shouye
+		
+		
+		
+		
+		
+		
+		
+		
+				
+>>>>>>> 450361abb5ae7450f788fb631df35445b93a9f62
 	</view>
 </template>
 
