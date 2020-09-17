@@ -6,7 +6,7 @@
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">身份证号</view>
-					<view style="width: 70%;"><input class="input" v-model="personInfo.perIdCard" readOnly='true' /></view>
+					<view style="width: 70%;"><input class="input" v-model="apply.perIdCard" readOnly='true' /></view>
 				</view>
 				<view class="bottomLine" />
 			</view>
@@ -14,7 +14,7 @@
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">工号</view>
-					<view style="width: 70%;"><input class="input" v-model="personInfo.perNum" readOnly='true' /></view>
+					<view style="width: 70%;"><input class="input" v-model="apply.perNum" readOnly='true' /></view>
 				</view>
 				<view class="bottomLine" />
 			</view>
@@ -22,7 +22,7 @@
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">单位</view>
-					<view style="width: 70%;"><input class="input" v-model="personInfo.collegeName" readOnly='true' /></view>
+					<view style="width: 70%;"><input class="input" v-model="apply.collegeName" readOnly='true' /></view>
 				</view>
 				<view class="bottomLine" />
 			</view>
@@ -30,14 +30,14 @@
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">姓名</view>
-					<view style="width: 70%;"><input class="input" v-model="personInfo.perName" readOnly='true' /></view>
+					<view style="width: 70%;"><input class="input" v-model="apply.perName" readOnly='true' /></view>
 				</view>
 				<view class="bottomLine" />
 			</view>
 
 			<view class="adBaseView">
 				<view class="adRowView">
-					<view class="headView">性别</view>
+					<view class="headView"><view class="mustView" >*</view>性别</view>
 					<view class="uni-list">
 						<view class="uni-list-cell">
 							<view class="uni-list-cell-db">
@@ -50,11 +50,22 @@
 				</view>
 				<view class="bottomLine" />
 			</view>
-			
-			
-			<view class="adBaseView">
+
+		<view class="adBaseView">
 			<view class="adRowView">
-				<view class="headView">婚姻状态</view>
+				<view class="headView"><view class="mustView" >*</view>出生日期</view>
+				<view >
+					<picker mode="time" :value="apply.perBirth" start="00:00" end="24:00" @change="bindTimeChangePerBirth">
+						<view>{{apply.perBirth}}</view>
+					</picker>
+				</view>
+			</view>
+			<view class="bottomLine"/>
+		</view>
+			
+		<view class="adBaseView">
+			<view class="adRowView">
+				<view class="headView"><view class="mustView" >*</view>婚姻状态</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-db">
@@ -71,49 +82,75 @@
 
             <view class="adBaseView">
 			<view class="adRowView">
-				<view class="headView">联系方式</view>
-				<view style="width: 70%;"><input class="input" v-model="personInfo.mobilePhone" /></view>
+				<view class="headView"><view class="mustView" >*</view>联系方式</view>
+				<view style="width: 70%;"><input class="input" v-model="apply.mobilePhone" /></view>
 				</view>
 				<view class="bottomLine" />
 			</view>
 		</view>
+		<view class="adBaseView">
+			<view class="adRowView">
+				<view class="headView"><view class="mustView" >*</view>查体单位</view>
+				<view style="width: 70%;">
+					<picker class="input" @change="bindchangeCheckUnit" :value="checkUnitIndex" :range="checkUnitList" :range-key="'unitNum'">
+						<view class="uni-input">{{checkUnitList[checkUnitIndex].unitName}}</view>
+					</picker>
+				</view>
+			</view>
+			<view class="bottomLine"/>
+		</view>	
 
-		<button class="button-cell2" @click="submit">保存并提交</button>
-		<button class="button-cell2" @click="navigateTestPage">跳转</button>
+		<button class="button-cell2" @click="navigateNextPage">下一步</button>
 	</view>
 	</view>
 </template>
 
 <script>
 	import {
-		physicalexaminationApplyInit
+		physicalexaminationApply
 	} from '@/api/medicare.js'
 	export default {
 		data() {
 			return {
-				personInfo: {},
+				apply: {
+					perNum:'',
+					perName:'',
+					perIdCard:'',
+					genderCode:'',
+					collegeName:'',
+					perBirth:'',
+					marryState:'',
+					mobilePhone:'',
+					cardNum:'',
+					checkUnit:'',
+				},
 				marryIndex: 0,
 				genderIndex: 0,
+				checkUnitIndex:0,
 				marryStates: ['未婚', '已婚'],
 				genders: ['男', '女'],
+				checkUnitList:[],
+				isPhysicalClose:'',
+				year:'',
 
 			}
 		},
 		onShow: function(e) {
-			physicalexaminationApplyInit().then(res => {
+			physicalexaminationApply().then(res => {
 				if (res.re == 1) {
-					this.personInfo = res.data.personInfo
-					if(this.personInfo.genderCode === '1'){
+					this.apply = res.data.apply
+					if(this.apply.genderCode === '1'){
 						this.genderIndex = 0
 					}else{
 						this.genderIndex = 1
 					}
-					if(this.personInfo.marryStateStr === '未婚'){
-						this.genderIndex = 0
+					if(this.apply.marryState === '0'){
+						this.marryIndex = 0
 					}else{
-						this.genderIndex = 1
+						this.marryIndex = 1
 					}
-					
+					this.checkUnitIndex = res.data.checkUnitIndex
+					this.checkUnitList = res.data.chekUnitList
 					this.isPhysicalClose = res.data.isPhysicalClose
 					this.isLoading = false
 				} else {
@@ -127,20 +164,30 @@
 		methods: {
 			bindPickerGenderChange(e) {
 				this.genderIndex = e.target.value
-				this.personInfo.genderCode = this.genderIndex
+				if(this.genderIndex===0) 
+					this.apply.genderCode = '1';
+				else 
+					this.apply.genderCode = '2';
 			},
 			bindPickerMarryChange(e){
 				this.marryIndex = e.target.value
-				if(this.marryIndex === '0'){
-					this.personInfo.marryStateStr = '未婚'
+				if(this.marryIndex === 0){
+					this.apply.marryState = '0'
 				}else {
-					this.personInfo.marryStateStr = '已婚'
+					this.apply.marryState = '1'
 				}
 			},
-			navigateTestPage(){
+		   bindTimeChangePerBirth(e){
+			   this.apply.perBirth = e.target.value
+		   },
+			bindchangeCheckUnit(e){
+				this.checkUnitIndex = e.target.value				 
+				this.apply.checkUnit = this.checkUnitList[this.checkUnitIndex].unitNum
+			},
+			navigateNextPage(){
 				//在同一个medicare目录下
 				uni.navigateTo({
-					url:'./physicalexaminationApplyView'
+					url:'./physicalexaminationApplyNext'
 				})
 				
 				// 在不同目录下
@@ -150,7 +197,7 @@
 			},
 			saveQualificationInfo() {
 				saveQualificationInfo({
-					form: this.personInfo,
+					form: this.apply,
 				}).then(res => {
 					console.log(res)
 					if (res.re == '1') {

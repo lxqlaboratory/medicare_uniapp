@@ -25,6 +25,12 @@
 			}
 		},
 		{
+			"path": "pages/medicare/physicalexaminationApplyNext",
+			"style": {
+		
+			}
+		},
+		{
 			"path": "pages/medicare/physicalexaminationApplyView",
 			"style": {
 		
@@ -42,7 +48,7 @@
 
 			}
 		}
-	],
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "卫生与健康服务",
