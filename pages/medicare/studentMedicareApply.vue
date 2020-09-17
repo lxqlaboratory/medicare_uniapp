@@ -1,8 +1,10 @@
 <template>
 	<view>
-		<view>
-			<uni-section title="报名信息" type="line" />
-
+		<view v-if="isMedicareClose">
+			<uni-section title="医保报名已关闭,无法在报名!" type="line" />
+		</view>
+		<view v-else >
+			<uni-section title="请同学们仔细核对个人信息！选择缴费方式后，点击“提交”即可。如信息有误，请及时联系技术人员修改!" type="line" />
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">学号</view>
@@ -103,7 +105,8 @@
 					<view class="headView">
 						<view class="mustView">*</view>缴费方式
 					</view>
-					<view class="uni-list">
+					<view v-if="isFree" class="input-text">免费</view>
+					<view v-else class="uni-list">
 						<view class="uni-list-cell">
 							<view class="uni-list-cell-db">
 								<picker @change="bindPickerModelPayChange" :value="form.modelPay" :range="payModels">
@@ -143,7 +146,6 @@
 				format: true
 			})
 			return {
-
 				date: currentDate,
 				start: currentDate,
 				end: currentDate,
@@ -167,12 +169,12 @@
 					cardNum:'',
 					isFree:''
 				},
-				isFree:'0',
+				isFree:false,
 				genderIndex:0,
 				payModels: ['请选择缴费方式','校园卡扣费','现金缴费','弃保'],
 				genders: ['男', '女'],
 				year: '',
-				isMedicareClose:''
+				isMedicareClose:false
 			}
 		},
 		computed: {
@@ -196,8 +198,10 @@
 						} else {
 							this.genderIndex = 1
 						}
+						this.isMedicareClose = res.data.isMedicareClose
 						this.isFee = res.data.isFee
 						this.isLoading = false
+						console.log(this.isMedicareClose)
 					} else {
 						console.log(res)
 						this.isLoading = false
@@ -205,6 +209,53 @@
 				}).catch(err => {
 
 				})
+			},
+			bindPickerGenderChange(e) {
+				this.genderIndex = e.target.value
+				if (this.genderIndex === 0)
+					this.form.genderCode = '1';
+				else
+					this.form.genderCode = '2';
+			},
+			bindPickerModelPayChange(e) {
+				this.form.modelPay = e.target.value
+			},
+			bindTimeChangePerBirth(e) {
+				this.form.perBirth = e.target.value
+			},
+			getDate(type) {
+				const date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+
+				if (type === 'start') {
+					year = year - 100;
+				} else if (type === 'end') {
+					year = year + 2;
+				}
+				month = month > 9 ? month : '0' + month;;
+				day = day > 9 ? day : '0' + day;
+				return `${year}-${month}-${day}`;
+			},
+			doSubmit() {
+				studentMedicareApplySubmit({
+					form: this.form,
+				}).then(res => {
+					console.log(res)
+					if (res.re == '1') {
+						uni.showModal({
+							title: '提示',
+							content: '保存成功'
+						});
+					} else {
+						this.isLoading = false
+						uni.showModal({
+							title: '提示',
+							content: '保存失败'
+						});
+					}
+				}).catch(err => {})
 			},
 		}
 	}
