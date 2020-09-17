@@ -75,31 +75,46 @@
 						</view>
 					</view>
 				</view>
-				</view>
-				<view class="bottomLine" />
 			</view>
+			<view class="bottomLine" />
+		</view>
 
-
-            <view class="adBaseView">
+        <view class="adBaseView">
 			<view class="adRowView">
 				<view class="headView"><view class="mustView" >*</view>联系方式</view>
 				<view style="width: 70%;"><input class="input" v-model="apply.mobilePhone" /></view>
-				</view>
-				<view class="bottomLine" />
-			</view>
+			</view>				
+			<view class="bottomLine" />
+		</view>
+        <view class="adBaseView">
+			<view class="adRowView">
+				<view class="headView">体检券</view>
+				<view style="width: 70%;"><input class="input" v-model="apply.checkDes" /></view>
+			</view>				
+			<view class="bottomLine" />
 		</view>
 		<view class="adBaseView">
 			<view class="adRowView">
 				<view class="headView"><view class="mustView" >*</view>查体单位</view>
 				<view style="width: 70%;">
-					<picker class="input" @change="bindchangeCheckUnit" :value="checkUnitIndex" :range="checkUnitList" :range-key="'unitName'">
-						<view class="uni-input">{{checkUnitList[checkUnitIndex].unitName}}</view>
+					<picker class="input" @change="bindchangeCheckUnit" :value="checkUnitIndex" :range="checkUnitList" :range-key="'label'">
+						<view class="uni-input">{{checkUnitList[checkUnitIndex].label}}</view>
 					</picker>
 				</view>
 			</view>
 			<view class="bottomLine"/>
 		</view>	
-
+		<view class="adBaseView">
+			<view class="adRowView">
+				<view class="headView"><view class="mustView" >*</view>查体套餐</view>
+				<view style="width: 70%;">
+					<picker class="input" @change="bindchangeProject" :value="projectIndex" :range="projectList" :range-key="'label'">
+						<view class="uni-input">{{projectList[projectIndex].label}}</view>
+					</picker>
+				</view>
+			</view>
+			<view class="bottomLine"/>
+		</view>	
 		<button class="button-cell2" @click="navigateNextPage">下一步</button>
 	</view>
 	</view>
@@ -123,45 +138,57 @@
 					mobilePhone:'',
 					cardNum:'',
 					checkUnit:'',
+					checkDes:'',
+					baseCheck:'',
+					addedCheck:'',
+					projectId:'',
 				},
 				marryIndex: 0,
 				genderIndex: 0,
-				checkUnitIndex:0,
+				checkUnitIndex:-1,
+				projectIndex:-1,
 				marryStates: ['未婚', '已婚'],
 				genders: ['男', '女'],
 				checkUnitList:[],
+				projectList:[],
 				isPhysicalClose:'',
 				year:'',
 
 			}
 		},
-		onShow: function(e) {
-			physicalexaminationApply().then(res => {
-				if (res.re == 1) {
-					this.apply = res.data.apply
-					if(this.apply.genderCode === '1'){
-						this.genderIndex = 0
-					}else{
-						this.genderIndex = 1
-					}
-					if(this.apply.marryState === '0'){
-						this.marryIndex = 0
-					}else{
-						this.marryIndex = 1
-					}
-					this.checkUnitIndex = res.data.checkUnitIndex
-					this.checkUnitList = res.data.checkUnitList
-					this.isPhysicalClose = res.data.isPhysicalClose
-					this.isLoading = false
-				} else {
-					console.log(res)
-					this.isLoading = false
-				}
-			}).catch(err => {
-
-			})
+		onLoad: function(e) {
+			this.fetchData()
 		},
 		methods: {
+			fetchData(){
+				physicalexaminationApply().then(res => {
+						if (res.re == 1) {
+							this.apply = res.data.apply
+							if(this.apply.genderCode === '1'){
+								this.genderIndex = 0
+							}else{
+								this.genderIndex = 1
+							}
+							if(this.apply.marryState === '0'){
+								this.marryIndex = 0
+							}else{
+								this.marryIndex = 1
+							}
+							this.checkUnitIndex = res.data.checkUnitIndex
+							this.checkUnitList = res.data.checkUnitList
+							this.projectIndex = res.data.projectIndex
+							this.projectList = res.data.projectList
+							this.isPhysicalClose = res.data.isPhysicalClose
+							this.isLoading = false
+						} else {
+							console.log(res)
+							this.isLoading = false
+						}
+					}).catch(err => {
+				
+					})
+				
+			},
 			bindPickerGenderChange(e) {
 				this.genderIndex = e.target.value
 				if(this.genderIndex===0) 
@@ -177,17 +204,21 @@
 					this.apply.marryState = '1'
 				}
 			},
-		   bindTimeChangePerBirth(e){
+			bindTimeChangePerBirth(e){
 			   this.apply.perBirth = e.target.value
-		   },
+			},
 			bindchangeCheckUnit(e){
 				this.checkUnitIndex = e.target.value				 
-				this.apply.checkUnit = this.checkUnitList[this.checkUnitIndex].unitNum
+				this.apply.checkUnit = this.checkUnitList[this.checkUnitIndex].value
+			},
+			bindchangeProject(e){
+				this.projectIndex = e.target.value				 
+				this.apply.projectId = this.projectList[this.projectIndex].value
 			},
 			navigateNextPage(){
 				//在同一个medicare目录下
 				uni.navigateTo({
-					url:'./physicalexaminationApplyNext?marryIndex='+this.marryIndex+'&&genderIndex='+this.genderIndex+''
+					url:'./physicalexaminationApplyNext?genderCode='+this.apply.genderCode+'&perBirth='+this.apply.perBirth+'&marryState='+this.apply.marryState+'&checkUnit='+this.apply.checkUnit
 				})
 				
 				// 在不同目录下
