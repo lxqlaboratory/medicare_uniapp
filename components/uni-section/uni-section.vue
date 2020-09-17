@@ -98,7 +98,7 @@
 
 	.line {
 		height: 15px;
-		background-color: #7acfa6;
+		background-color: $uni-text-color-disable;
 		border-radius: 5px;
 		width: 3px;
 	}

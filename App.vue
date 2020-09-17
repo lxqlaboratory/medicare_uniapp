@@ -20,6 +20,11 @@
 </script>
 
 <style>
+	.cloumnlist {
+	
+	margin-left: 30upx;
+	font-size: 28upx;
+	}
 	.button-cell {
 	
 		width: 45%;
@@ -45,7 +50,15 @@
 		align-items: center;
 		padding-top: 20upx;
 	}
-	
+	.adBaseView2 {
+		width: 100%;
+		background-color: #FFFFFF;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: left;
+		padding-top: 20upx;
+	}
 	.adRowView {
 		width: calc(100% - 48upx);
 		display: flex;

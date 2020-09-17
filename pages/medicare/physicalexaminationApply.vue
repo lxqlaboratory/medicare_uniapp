@@ -6,7 +6,7 @@
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">身份证号</view>
-					<view style="width: 70%;"><input class="input" v-model="apply.perIdCard" readOnly='true' /></view>
+					<view class="input-text">{{apply.perIdCard}}</view>
 				</view>
 				<view class="bottomLine" />
 			</view>
@@ -14,7 +14,7 @@
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">工号</view>
-					<view style="width: 70%;"><input class="input" v-model="apply.perNum" readOnly='true' /></view>
+					<view class="input-text">{{apply.perNum}}</view>
 				</view>
 				<view class="bottomLine" />
 			</view>
@@ -22,7 +22,7 @@
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">单位</view>
-					<view style="width: 70%;"><input class="input" v-model="apply.collegeName" readOnly='true' /></view>
+					<view class="input-text">{{apply.collegeName}}</view>
 				</view>
 				<view class="bottomLine" />
 			</view>
@@ -30,14 +30,16 @@
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">姓名</view>
-					<view style="width: 70%;"><input class="input" v-model="apply.perName" readOnly='true' /></view>
+					<view class="input-text">{{apply.perName}}</view>
 				</view>
 				<view class="bottomLine" />
 			</view>
 
 			<view class="adBaseView">
 				<view class="adRowView">
-					<view class="headView"><view class="mustView" >*</view>性别</view>
+					<view class="headView">
+						<view class="mustView">*</view>性别
+					</view>
 					<view class="uni-list">
 						<view class="uni-list-cell">
 							<view class="uni-list-cell-db">
@@ -51,176 +53,261 @@
 				<view class="bottomLine" />
 			</view>
 
-		<view class="adBaseView">
-			<view class="adRowView">
-				<view class="headView"><view class="mustView" >*</view>出生日期</view>
-				<view >
-					<picker mode="time" :value="apply.perBirth" start="00:00" end="24:00" @change="bindTimeChangePerBirth">
-						<view>{{apply.perBirth}}</view>
-					</picker>
+			<view class="adBaseView">
+				<view class="adRowView">
+					<view class="headView">
+						<view class="mustView">*</view>出生日期
+					</view>
+					<view>
+						<picker mode="date" :value="apply.perBirth" :start="startDate" :end="endDate" @change="bindTimeChangePerBirth">
+							<view>{{apply.perBirth}}</view>
+						</picker>
+					</view>
 				</view>
+				<view class="bottomLine" />
 			</view>
-			<view class="bottomLine"/>
-		</view>
-			
-		<view class="adBaseView">
-			<view class="adRowView">
-				<view class="headView"><view class="mustView" >*</view>婚姻状态</view>
-				<view class="uni-list">
-					<view class="uni-list-cell">
-						<view class="uni-list-cell-db">
-							<picker @change="bindPickerMarryChange" :value="marryIndex" :range="marryStates">
-								<view class="uni-input">{{marryStates[marryIndex]}}</view>
-							</picker>
+
+			<view class="adBaseView">
+				<view class="adRowView">
+					<view class="headView">
+						<view class="mustView">*</view>婚姻状态
+					</view>
+					<view class="uni-list">
+						<view class="uni-list-cell">
+							<view class="uni-list-cell-db">
+								<picker @change="bindPickerMarryChange" :value="marryIndex" :range="marryStates">
+									<view class="uni-input">{{marryStates[marryIndex]}}</view>
+								</picker>
+							</view>
 						</view>
 					</view>
 				</view>
+				<view class="bottomLine" />
 			</view>
-			<view class="bottomLine" />
-		</view>
 
-        <view class="adBaseView">
-			<view class="adRowView">
-				<view class="headView"><view class="mustView" >*</view>联系方式</view>
-				<view style="width: 70%;"><input class="input" v-model="apply.mobilePhone" /></view>
-			</view>				
-			<view class="bottomLine" />
-		</view>
-        <view class="adBaseView">
-			<view class="adRowView">
-				<view class="headView">体检券</view>
-				<view style="width: 70%;"><input class="input" v-model="apply.checkDes" /></view>
-			</view>				
-			<view class="bottomLine" />
-		</view>
-		<view class="adBaseView">
-			<view class="adRowView">
-				<view class="headView"><view class="mustView" >*</view>查体单位</view>
-				<view style="width: 70%;">
-					<picker class="input" @change="bindchangeCheckUnit" :value="checkUnitIndex" :range="checkUnitList" :range-key="'label'">
-						<view class="uni-input">{{checkUnitList[checkUnitIndex].label}}</view>
-					</picker>
+			<view class="adBaseView">
+				<view class="adRowView">
+					<view class="headView">
+						<view class="mustView">*</view>联系方式
+					</view>
+					<view style="width: 70%;"><input class="input" v-model="apply.mobilePhone" /></view>
+				</view>
+				<view class="bottomLine" />
+			</view>
+			<view class="adBaseView">
+				<view class="adRowView">
+					<view class="headView">体检券</view>
+					<view class="input-text">{{apply.checkDes}}</view>
+				</view>
+				<view class="bottomLine" />
+			</view>
+			<view class="adBaseView">
+				<view class="adRowView">
+					<view class="headView">
+						<view class="mustView">*</view>查体单位
+					</view>
+					<view style="width: 70%;">
+						<picker class="input" @change="bindchangeCheckUnit" :value="checkUnitIndex" :range="checkUnitList" :range-key="'label'">
+							<view class="uni-input">{{checkUnitList[checkUnitIndex].label}}</view>
+						</picker>
+					</view>
+				</view>
+				<view class="bottomLine" />
+			</view>
+
+			<view class="adBaseView">
+				<view class="adRowView">
+					<view class="headView">
+						<view class="mustView">*</view>查体套餐
+					</view>
+					<view style="width: 70%;">
+						<picker class="input" @change="bindchangeProject" :value="projectIndex" :range="projectList" :range-key="'label'">
+							<view class="uni-input">{{projectList[projectIndex].label}}</view>
+						</picker>
+					</view>
+				</view>
+				<view class="bottomLine" />
+			</view>
+			<uni-list>
+				<uni-list-item :show-switch="true" title="展开查看套餐详细" @switchChange="switchChange" />
+			</uni-list>
+			<view v-if="showProject">
+				<view class="adBaseView2" v-for="items in itemList" :key="items">
+					<view class="cloumnlist">
+						{{items}}
+					</view>
+					<view class="bottomLine" />
 				</view>
 			</view>
-			<view class="bottomLine"/>
-		</view>	
-		<view class="adBaseView">
-			<view class="adRowView">
-				<view class="headView"><view class="mustView" >*</view>查体套餐</view>
-				<view style="width: 70%;">
-					<picker class="input" @change="bindchangeProject" :value="projectIndex" :range="projectList" :range-key="'label'">
-						<view class="uni-input">{{projectList[projectIndex].label}}</view>
-					</picker>
-				</view>
-			</view>
-			<view class="bottomLine"/>
-		</view>	
-		<button class="button-cell2" @click="navigateNextPage">下一步</button>
-	</view>
+			<button class="button-cell2" @click="navigateNextPage">下一步</button>
+		</view>
 	</view>
 </template>
 
 <script>
 	import {
+		uniList
+	} from '@/components/uni-list/uni-list.vue'
+	import {
+		uniListItem
+	} from '@/components/uni-list-item/uni-list-item.vue'
+	import {
+		physicalexaminationApplyProjectItemList
+	} from '@/api/medicare.js'
+	import {
 		physicalexaminationApply
 	} from '@/api/medicare.js'
+	import {
+		physicalexaminationApplyProjectList
+	} from '@/api/medicare.js'
 	export default {
+		components: {
+			uniList,
+			uniListItem
+		},
 		data() {
+			const currentDate = this.getDate({
+				format: true
+			})
 			return {
+
+				date: currentDate,
+				start: currentDate,
+				end: currentDate,
+				showProject: false,
 				apply: {
-					perNum:'',
-					perName:'',
-					perIdCard:'',
-					genderCode:'',
-					collegeName:'',
-					perBirth:'',
-					marryState:'',
-					mobilePhone:'',
-					cardNum:'',
-					checkUnit:'',
-					checkDes:'',
-					baseCheck:'',
-					addedCheck:'',
-					projectId:'',
+					perNum: '',
+					perName: '',
+					perIdCard: '',
+					genderCode: '',
+					collegeName: '',
+					perBirth: '',
+					marryState: '',
+					mobilePhone: '',
+					cardNum: '',
+					checkUnit: '',
+					checkDes: '',
+					baseCheck: '',
+					addedCheck: '',
+					projectId: '',
 				},
 				marryIndex: 0,
 				genderIndex: 0,
-				checkUnitIndex:-1,
-				projectIndex:-1,
+				checkUnitIndex: -1,
+				projectIndex: -1,
 				marryStates: ['未婚', '已婚'],
 				genders: ['男', '女'],
-				checkUnitList:[],
-				projectList:[],
-				isPhysicalClose:'',
-				year:'',
+				checkUnitList: [],
+				projectList: [],
+				itemList: [],
+				isPhysicalClose: '',
+				year: '',
 
 			}
 		},
-		onLoad: function(e) {
+		computed: {
+			startDate() {
+				return this.getDate('start');
+			},
+			endDate() {
+				return this.getDate('end');
+			}
+		},
+		onShow: function(e) {
 			this.fetchData()
 		},
 		methods: {
-			fetchData(){
+			switchChange(e) {
+				console.log(e.value)
+				if (e.value === true) {
+					this.showProject = true
+				} else if (e.value === false) {
+					this.showProject = false
+				}
+			},
+			fetchData() {
+
 				physicalexaminationApply().then(res => {
-						if (res.re == 1) {
-							this.apply = res.data.apply
-							if(this.apply.genderCode === '1'){
-								this.genderIndex = 0
-							}else{
-								this.genderIndex = 1
-							}
-							if(this.apply.marryState === '0'){
-								this.marryIndex = 0
-							}else{
-								this.marryIndex = 1
-							}
-							this.checkUnitIndex = res.data.checkUnitIndex
-							this.checkUnitList = res.data.checkUnitList
-							this.projectIndex = res.data.projectIndex
-							this.projectList = res.data.projectList
-							this.isPhysicalClose = res.data.isPhysicalClose
-							this.isLoading = false
+					this.showProject = false
+					if (res.re == 1) {
+						this.apply = res.data.apply
+						if (this.apply.genderCode === '1') {
+							this.genderIndex = 0
 						} else {
-							console.log(res)
-							this.isLoading = false
+							this.genderIndex = 1
 						}
-					}).catch(err => {
-				
-					})
-				
+						if (this.apply.marryState === '0') {
+							this.marryIndex = 0
+						} else {
+							this.marryIndex = 1
+						}
+						this.checkUnitIndex = res.data.checkUnitIndex
+						this.checkUnitList = res.data.checkUnitList
+						this.projectIndex = res.data.projectIndex
+						this.projectList = res.data.projectList
+						this.isPhysicalClose = res.data.isPhysicalClose
+						this.isLoading = false
+					} else {
+						console.log(res)
+						this.isLoading = false
+					}
+				}).catch(err => {
+
+				})
+
 			},
 			bindPickerGenderChange(e) {
 				this.genderIndex = e.target.value
-				if(this.genderIndex===0) 
+				if (this.genderIndex === 0)
 					this.apply.genderCode = '1';
-				else 
+				else
 					this.apply.genderCode = '2';
 			},
-			bindPickerMarryChange(e){
+			bindPickerMarryChange(e) {
 				this.marryIndex = e.target.value
-				if(this.marryIndex === 0){
+				if (this.marryIndex === 0) {
 					this.apply.marryState = '0'
-				}else {
+				} else {
 					this.apply.marryState = '1'
 				}
 			},
-			bindTimeChangePerBirth(e){
-			   this.apply.perBirth = e.target.value
+			bindTimeChangePerBirth(e) {
+				this.apply.perBirth = e.target.value
 			},
-			bindchangeCheckUnit(e){
-				this.checkUnitIndex = e.target.value				 
+			bindchangeCheckUnit(e) {
+				this.checkUnitIndex = e.target.value
 				this.apply.checkUnit = this.checkUnitList[this.checkUnitIndex].value
+				physicalexaminationApplyProjectList({
+					checkUnit: this.apply.checkUnit,
+					baseCheck: this.apply.baseCheck,
+					genderCode: this.apply.genderCode,
+					marryState: this.apply.marryState,
+					perBirth: this.apply.perBirth
+
+				}).then(res => {
+					this.projectIndex = res.data.projectIndex
+					this.projectList = res.data.projectList
+				})
+
 			},
-			bindchangeProject(e){
-				this.projectIndex = e.target.value				 
+			bindchangeProject(e) {
+				this.projectIndex = e.target.value
 				this.apply.projectId = this.projectList[this.projectIndex].value
+
+				physicalexaminationApplyProjectItemList({
+					projectId: this.apply.projectId
+				}).then(res => {
+					this.itemList = res.data
+
+				})
 			},
-			navigateNextPage(){
+			navigateNextPage() {
 				//在同一个medicare目录下
 				uni.navigateTo({
-					url:'./physicalexaminationApplyNext?genderCode='+this.apply.genderCode+'&perBirth='+this.apply.perBirth+'&marryState='+this.apply.marryState+'&checkUnit='+this.apply.checkUnit
+					url: './physicalexaminationApplyNext?genderCode=' + this.apply.genderCode + '&perBirth=' + this.apply.perBirth +
+						'&marryState=' + this.apply.marryState + '&checkUnit=' + this.apply.checkUnit
 				})
-				
+
 				// 在不同目录下
 				// uni.navigateTo({
 				// 	url:'../base/baseInfo'
@@ -255,6 +342,21 @@
 					}
 				}).catch(err => {})
 
+			},
+			getDate(type) {
+				const date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+
+				if (type === 'start') {
+					year = year - 100;
+				} else if (type === 'end') {
+					year = year + 2;
+				}
+				month = month > 9 ? month : '0' + month;;
+				day = day > 9 ? day : '0' + day;
+				return `${year}-${month}-${day}`;
 			},
 		}
 	}
