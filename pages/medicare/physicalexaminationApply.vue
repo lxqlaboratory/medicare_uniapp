@@ -92,7 +92,7 @@
 			<view class="adRowView">
 				<view class="headView"><view class="mustView" >*</view>查体单位</view>
 				<view style="width: 70%;">
-					<picker class="input" @change="bindchangeCheckUnit" :value="checkUnitIndex" :range="checkUnitList" :range-key="'unitNum'">
+					<picker class="input" @change="bindchangeCheckUnit" :value="checkUnitIndex" :range="checkUnitList" :range-key="'unitName'">
 						<view class="uni-input">{{checkUnitList[checkUnitIndex].unitName}}</view>
 					</picker>
 				</view>
@@ -150,7 +150,7 @@
 						this.marryIndex = 1
 					}
 					this.checkUnitIndex = res.data.checkUnitIndex
-					this.checkUnitList = res.data.chekUnitList
+					this.checkUnitList = res.data.checkUnitList
 					this.isPhysicalClose = res.data.isPhysicalClose
 					this.isLoading = false
 				} else {
@@ -187,7 +187,7 @@
 			navigateNextPage(){
 				//在同一个medicare目录下
 				uni.navigateTo({
-					url:'./physicalexaminationApplyNext'
+					url:'./physicalexaminationApplyNext?marryIndex='+this.marryIndex+'&&genderIndex='+this.genderIndex+''
 				})
 				
 				// 在不同目录下

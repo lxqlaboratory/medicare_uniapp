@@ -58,7 +58,7 @@
 		flex: 1;
 		text-align: left;
 		/* margin-left: 30upx; */
-		font-size: 28upx;
+		font-size: 32upx;
 		/*超出一行点点点*/
 		overflow: hidden;
 		/*超出的部分隐藏起来。*/
@@ -87,12 +87,12 @@
 	
 	.input {
 		text-align: right !important;
-		font-size: 28upx !important;
+		font-size: 32upx !important;
 	}
 	
 	.input-text {
 		text-align: right !important;
-		font-size: 28upx !important;
+		font-size: 32upx !important;
 		color: rgb(128, 128, 128);
 	}
 </style>

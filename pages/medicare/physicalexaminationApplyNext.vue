@@ -1,6 +1,6 @@
 <template>
 	<view>
-套餐选择		
+套餐选择	{{marryIndex}} {{genderIndex}}	
 	</view>
 </template>
 
@@ -8,8 +8,13 @@
 	export default {
 		data() {
 			return {
-				
+				marryIndex: '',
+				genderIndex: '',
 			}
+		},
+		onLoad(options) {
+			this.marryIndex = options.marryIndex
+			this.genderIndex = options.genderIndex
 		},
 		methods: {
 			
