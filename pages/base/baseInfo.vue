@@ -177,7 +177,7 @@ import { unbounding } from '@/api/login.js'
 			},
 			unboding() {
 				unbounding({}).then(res => {
-					if(res.re === 0){
+					if(res.re === 1){
 				uni.showModal({
 					title: '提示',
 					showCancel: false,
