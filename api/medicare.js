@@ -15,10 +15,19 @@ export function physicalexaminationApplyProjectList(data) {
 		data: data
 	})
 }
-export function physicalexaminationApplyProjectItemList(data) {
+export function studentMedicareApply(data) {
 	return request.request({
-		url: '/medicare/physicalexaminationApplyProjectItemList',
+		url: '/medicare/studentMedicareApply',
 		method: 'POST',
 		data: data
 	})
 }
+
+export function studentMedicareApplySubmit(data) {
+	return request.request({
+		url: '/medicare/studentMedicareApplySubmit',
+		method: 'POST',
+		data: data
+	})
+}
+

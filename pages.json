@@ -25,12 +25,6 @@
 			}
 		},
 		{
-			"path": "pages/medicare/physicalexaminationApplyNext",
-			"style": {
-		
-			}
-		},
-		{
 			"path": "pages/medicare/physicalexaminationApplyView",
 			"style": {
 		
@@ -38,6 +32,18 @@
 		},
 		{
 			"path": "pages/medicare/physicalexaminationReportView",
+			"style": {
+		
+			}
+		},
+		{
+			"path": "pages/medicare/studentMedicareApply",
+			"style": {
+		
+			}
+		},
+		{
+			"path": "pages/medicare/studentMedicareApplyView",
 			"style": {
 		
 			}
