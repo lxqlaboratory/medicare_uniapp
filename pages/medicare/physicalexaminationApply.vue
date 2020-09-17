@@ -301,18 +301,6 @@
 
 				})
 			},
-			navigateNextPage() {
-				//在同一个medicare目录下
-				uni.navigateTo({
-					url: './physicalexaminationApplyNext?genderCode=' + this.apply.genderCode + '&perBirth=' + this.apply.perBirth +
-						'&marryState=' + this.apply.marryState + '&checkUnit=' + this.apply.checkUnit
-				})
-
-				// 在不同目录下
-				// uni.navigateTo({
-				// 	url:'../base/baseInfo'
-				// })
-			},
 			saveQualificationInfo() {
 				saveQualificationInfo({
 					form: this.apply,

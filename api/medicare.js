@@ -30,4 +30,11 @@ export function studentMedicareApplySubmit(data) {
 		data: data
 	})
 }
+export function studentMedicareApplyView(data) {
+	return request.request({
+		url: '/medicare/studentMedicareApplyView',
+		method: 'POST',
+		data: data
+	})
+}
 
