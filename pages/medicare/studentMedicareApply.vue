@@ -7,10 +7,8 @@
 							  医保报名已关闭,无法在报名!
 						   </view>
 			</view>
-		<!-- 	<uni-section title="医保报名已关闭,无法在报名!" type="line" /> -->
 		</view>
 		<view v-else >
-	<!-- 		<uni-section title="请同学们仔细核对个人信息！选择缴费方式后，点击“提交”即可。如信息有误，请及时联系技术人员修改!"  /> -->
 	
 	       <view class="section">
 			   <view class="stitle">

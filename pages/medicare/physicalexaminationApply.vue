@@ -1,8 +1,11 @@
 <template>
 	<view>
 		<view>
-			<uni-section title="个人信息" type="line" />
-
+			<view class="section2">
+						   <view class="stitle">
+							  个人信息
+						   </view>
+			</view>
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">身份证号</view>
@@ -128,23 +131,35 @@
 				</view>
 				<view class="bottomLine" />
 			</view>
-			<uni-list>
+			<uni-collapse @change="change">
+			<uni-collapse-item title="展开查看查体项" >
+			        <view class="adBaseView2" v-for="items in itemList" :key="items">
+			        	<view class="cloumnlist">
+			        		{{items}}
+			        	</view>
+			        	<view class="bottomLine" />
+			        </view>
+			    </uni-collapse-item>
+				</uni-collapse>
+			<!-- <uni-list>
 				<uni-list-item :show-switch="true" title="展开查看套餐详细" @switchChange="switchChange" />
-			</uni-list>
-			<view v-if="showProject">
+			</uni-list> -->
+			<!-- <view v-if="showProject">
 				<view class="adBaseView2" v-for="items in itemList" :key="items">
 					<view class="cloumnlist">
 						{{items}}
 					</view>
 					<view class="bottomLine" />
 				</view>
-			</view>
+			</view> -->
 			<button class="button-cell2" @click="doSubmit">立即报名</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import uniCollapse from '@/components/uni-collapse/uni-collapse.vue'
+	import uniCollapseItem from '@/components/uni-collapse-item/uni-collapse-item.vue'
 	import {
 		uniList
 	} from '@/components/uni-list/uni-list.vue'
@@ -166,6 +181,8 @@
 	export default {
 		components: {
 			uniList,
+			uniCollapse,
+			uniCollapseItem,
 			uniListItem
 		},
 		data() {
@@ -220,9 +237,14 @@
 			this.fetchData()
 		},
 		methods: {
+			change(e){
+				console.log(e)
+			},
 			switchChange(e) {
-				console.log(e.value)
+				
 				if (e.value === true) {
+					
+					console.log('qqqq'+this.itemList)
 					this.showProject = true
 				} else if (e.value === false) {
 					this.showProject = false
@@ -248,6 +270,8 @@
 						this.checkUnitList = res.data.checkUnitList
 						this.projectIndex = res.data.projectIndex
 						this.projectList = res.data.projectList
+						this.itemList = res.data.itemList
+						console.log(this.itemList)
 						this.isPhysicalClose = res.data.isPhysicalClose
 						this.isLoading = false
 					} else {
@@ -290,6 +314,7 @@
 				}).then(res => {
 					this.projectIndex = res.data.projectIndex
 					this.projectList = res.data.projectList
+					this.itemList = res.sdata.itemList
 				})
 
 			},

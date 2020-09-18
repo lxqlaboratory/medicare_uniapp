@@ -15,6 +15,21 @@ export function physicalexaminationApplyProjectList(data) {
 		data: data
 	})
 }
+export function physicalexaminationApplyProjectItemList(data) {
+	return request.request({
+		url: '/medicare/physicalexaminationApplyProjectItemList',
+		method: 'POST',
+		data: data
+	})
+}
+export function physicalexaminationApplySubmit(data) {
+	return request.request({
+		url: '/medicare/physicalexaminationApplySubmit',
+		method: 'POST',
+		data: data
+	})
+}
+
 export function studentMedicareApply(data) {
 	return request.request({
 		url: '/medicare/studentMedicareApply',
