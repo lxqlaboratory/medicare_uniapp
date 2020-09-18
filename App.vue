@@ -20,6 +20,27 @@
 </script>
 
 <style>
+	
+	
+	.s3top{
+	  margin: 0 2vw 0 2vw;
+	  height: 15vh;
+	  display: flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+	  font-size: 15pt;
+	  font-weight: bold;
+	  color: #00d8a0;
+	  border-bottom: 4px solid rgba(235, 235, 235, 0.86);
+	  padding: 10px 0 10px 0;
+	}
+	.s3top image{
+	  height: 15vw;
+	  width: 15vw;
+	  margin-bottom: 10px;
+	}
+
 	.cloumnlist {
 	
 	margin-left: 30upx;
@@ -99,6 +120,14 @@
 		flex-direction: row;
 		align-items: center;
 		color: rgb(94, 94, 94);
+	}
+	.adRowView2 {
+		width: calc(100% - 48upx);
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		color: rgb(94, 94, 94);
+		font-weight: bold;
 	}
 	
 	.headView {
