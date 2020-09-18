@@ -67,7 +67,7 @@
 			</uni-collapse-item>
 		</uni-collapse>
 		
-		<button  type='primary'  class='s3bu' style="margin-top:15px;background-color:rgb(18,150,219)" @click="call()">
+		<button  type='primary'  class='s3bu' style="margin-top:15px;background-color:#7acfa6" @click="call()">
 			<image src="/static/image/icon_clinic_tel_l.png"></image>
 			<view>联系电话</view>
 		</button>
