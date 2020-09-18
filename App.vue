@@ -21,7 +21,17 @@
 
 <style>
 	
+	.item-t {
 	
+	  width: 100%;
+	  padding: 15px;
+	  border-bottom: 1px solid DarkGray;
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: space-between;
+	  align-items: center;
+	  background-color: white;
+	}
 	.s3top{
 	  margin: 0 2vw 0 2vw;
 	  height: 15vh;
@@ -86,7 +96,7 @@
 	}
 	.stitle{
 		font-size: 32rpx;
-		color: red;
+		color: #7acfa6;
         font-weight: bold;
 	}
 	.button-cell2 {
