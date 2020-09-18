@@ -251,6 +251,28 @@
 				return `${year}-${month}-${day}`;
 			},
 			doSubmit() {
+				// console.log(this.payModels[this.form.modelPay])
+				if (!this.form.mobilePhone){
+			        uni.showModal({
+			        title: '提示',
+					content: '联系方式不能为空',
+					showCancel: false
+					});
+				}
+				else if (!this.form.perBirth){
+					uni.showModal({
+					title: '提示',
+					content: '出生日期不能为空',
+					showCancel: false
+				}); 
+				}
+				else if (this.form.modelPay === 0){
+					uni.showModal({
+					title: '提示',
+					content: '请选择缴费方式',
+					showCancel: false
+				}); 
+				}else{
 				studentMedicareApplySubmit({
 					form: this.form,
 				}).then(res => {
@@ -258,16 +280,19 @@
 					if (res.re == '1') {
 						uni.showModal({
 							title: '提示',
-							content: '保存成功'
+							content: '保存成功',
+							showCancel: false
 						});
 					} else {
 						this.isLoading = false
 						uni.showModal({
 							title: '提示',
-							content: '保存失败'
+							content: '保存失败',
+							showCancel: false
 						});
 					}
 				}).catch(err => {})
+			}
 			},
 		}
 	}
