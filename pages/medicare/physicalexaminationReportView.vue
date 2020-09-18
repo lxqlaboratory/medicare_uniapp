@@ -41,17 +41,15 @@
 	 			基本套餐：<text style="font-weight: bold;" >{{item.projectName}}</text>
 	 		</view>	
 			<view style="margin-bottom: 3px;display: flex;flex-direction: row;">
-					<view style="color: blue;" >查体报告下载</view>
-					<view style="color: blue;margin-left: 50px;" >评估报告下载</view>
+				<view v-if="item.isCheck===true" style="color: green;" @click="donlowdExamReport(item.year,'check')" >查体报告下载</view>
+				<view v-else style="color: black;"  >未上传查体报告</view>
+				<view v-if="item.isAssess===true" style="color: green;margin-left: 50px;" @click="donlowdExamReport(item.year,'assess')" >评估报告下载</view>
+				<view v-else style="color: black;margin-left: 50px;"  >未上传评估报告</view>
 			</view>	
 			<!-- <view style="margin-bottom: 3px;">
 					<view style="color: blue;" >评估报告下载</view>
 			</view> -->	
 		 	</view>	
-										
-	 									
-	
-	 		
 	 </view>
 	</view>
 </template>
@@ -66,6 +64,7 @@
 			return {
 				perNum:'',
 				perName:'',
+				perIdCard:'',
 				collegeName:'',
 				dataList:[],
 			};
@@ -75,12 +74,43 @@
 			physicalexaminationReportView().then(res => {
 				this.perNum = res.data.perNum
 				this.perName = res.data.perName
+				this.perIdCard = res.data.perIdCard
 				this.collegeName = res.data.collegeName
 				this.dataList = res.data.dataList
 			});
 		},
 		methods: {
-			},
+			donlowdExamReport(year, type){
+				console.log(year,type)
+				wx.downloadFile({
+					url: 'http://localhost:8080/medicare/physicalexaminationReportDownload?year='+year+'&perIdCard='+ this.perIdCard + '&type='+ type, 
+					success: (res) => {
+						if (res.statusCode === 200) {
+								var filePath = res.tempFilePath;
+										console.log(filePath);
+									wx.openDocument({
+													filePath: filePath,
+													success: function(res) {
+														console.log('打开文档成功')
+													},
+													fail: function(res) {
+														console.log(res);
+													},
+													complete: function(res) {
+														console.log(res);
+													}
+												})
+								 
+							
+							uni.showToast({
+								title: `下载成功`,
+								icon: 'none'
+							})
+						}
+					}
+				});	
+				}
+		},
 }
 </script>
 
