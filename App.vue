@@ -33,7 +33,41 @@
 		background-color: red;
 	
 	}
-	
+	.section{
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		flex-direction: row;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		align-items: center;
+		padding: 0 10px;
+		height: 64px;
+		background-color: #f8f8f8;
+		border: 1px solid white;
+        border-bottom-color: #DDDDDD;
+	}
+	.section2{
+		display: flex;
+		-webkit-box-orient: horizontal;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: row;
+		flex-direction: row;
+		-webkit-box-align: center;
+		-webkit-align-items: center;
+		align-items: center;
+		padding: 0 10px;
+		height: 50px;
+		background-color: #f8f8f8;
+		border: 1px solid white;
+		border-bottom-color: #DDDDDD;
+	}
+	.stitle{
+		font-size: 32rpx;
+		color: red;
+        font-weight: bold;
+	}
 	.button-cell2 {
 		width: 45%;
 		font-size: 28upx;
@@ -90,7 +124,11 @@
 		font-size: 32upx;
 		margin-left: 10upx;
 	}
-	
+	.bottomLine3 {
+		width: 95%;
+		height: 2upx;
+		background-color: #DDDDDD;
+	}
 	.bottomLine {
 		width: 95%;
 		height: 2upx;

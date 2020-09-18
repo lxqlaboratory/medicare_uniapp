@@ -1,10 +1,24 @@
 <template>
 	<view>
-		<view v-if="isMedicareClose">
-			<uni-section title="医保报名已关闭,无法在报名!" type="line" />
+		<view v-if="isMedicareClose===true">
+			
+			<view class="section2">
+						   <view class="stitle">
+							  医保报名已关闭,无法在报名!
+						   </view>
+			</view>
+		<!-- 	<uni-section title="医保报名已关闭,无法在报名!" type="line" /> -->
 		</view>
 		<view v-else >
-			<uni-section title="请同学们仔细核对个人信息！选择缴费方式后，点击“提交”即可。如信息有误，请及时联系技术人员修改!" type="line" />
+	<!-- 		<uni-section title="请同学们仔细核对个人信息！选择缴费方式后，点击“提交”即可。如信息有误，请及时联系技术人员修改!"  /> -->
+	
+	       <view class="section">
+			   <view class="stitle">
+				   请同学们仔细核对个人信息！选择缴费方式后，点击“提交”即可。如信息有误，请及时联系技术人员修改!
+			   </view>
+		   </view>
+
+		   
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">学号</view>
@@ -105,7 +119,7 @@
 					<view class="headView">
 						<view class="mustView">*</view>缴费方式
 					</view>
-					<view v-if="isFree" class="input-text">免费</view>
+					<view v-if="form.isFree===true" class="input-text">免费</view>
 					<view v-else class="uni-list">
 						<view class="uni-list-cell">
 							<view class="uni-list-cell-db">

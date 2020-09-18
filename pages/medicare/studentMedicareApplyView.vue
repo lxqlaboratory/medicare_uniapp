@@ -1,8 +1,11 @@
 <template>
 	<view>
 		<view>
-			<uni-section title="报名信息" type="line" />
-
+            <view class="section2">
+            			   <view class="stitle">
+            				   报名信息
+            			   </view>
+            </view>
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">学号</view>
