@@ -84,7 +84,7 @@
 			donlowdExamReport(year, type){
 				console.log(year,type)
 				wx.downloadFile({
-					url: 'http://localhost:8080/medicare/physicalexaminationReportDownload?year='+year+'&perIdCard='+ this.perIdCard + '&type='+ type, 
+					url: getApp().globalData.medicareurl+'/medicare/physicalexaminationReportDownload?year='+year+'&perIdCard='+ this.perIdCard + '&type='+ type, 
 					success: (res) => {
 						if (res.statusCode === 200) {
 								var filePath = res.tempFilePath;

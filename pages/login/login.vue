@@ -76,7 +76,7 @@
 										else {
 											uni.showModal({
 												title: '提示',
-												content: '系统错误',
+												content: '账户已经被其他微信绑定，请解绑后再绑定',
 												success: function(res) {
 													if (res.confirm) {
 														console.log('确定');
