@@ -96,7 +96,7 @@
 	}
 	.stitle{
 		font-size: 32rpx;
-		color: red;
+		color: #7acfa6;
         font-weight: bold;
 	}
 	.button-cell2 {

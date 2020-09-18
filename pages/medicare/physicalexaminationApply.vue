@@ -2,7 +2,7 @@
 	<view>
 		<view>
 			<view class="section2">
-						   <view class="stitle">
+						   <view class="stitle" style="color: #7acfa6;">
 							  个人信息
 						   </view>
 			</view>
