@@ -46,6 +46,7 @@
 			</view>	
 			<!-- <view style="margin-bottom: 3px;">
 					<view style="color: blue;" >评估报告下载</view>
+					
 			</view> -->	
 		 	</view>	
 										
