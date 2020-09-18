@@ -140,7 +140,9 @@
 			        	<view class="bottomLine" />
 			        </view>
 			    </uni-collapse-item>
+				
 				</uni-collapse>
+				
 			<!-- <uni-list>
 				<uni-list-item :show-switch="true" title="展开查看套餐详细" @switchChange="switchChange" />
 			</uni-list> -->

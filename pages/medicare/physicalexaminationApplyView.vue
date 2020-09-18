@@ -36,20 +36,47 @@
 			</view>
 			<view class="bottomLine" />
 		</view>
-
-
-		<uni-list>
-			<uni-list-item :show-switch="true" title="友情提示" @switchChange="switchChange"  />
-			<uni-list-item :show-switch="true" title="注意事项" @switchChange="switchChange" />
-			<uni-list-item :show-switch="true" title="查体项目" @switchChange="switchChange" />
-		</uni-list>
-
+		<uni-collapse @change="change">
+			<uni-collapse-item title="友情提示">
+				<view class="adBaseView2" v-for="items in promptList" :key="items">
+					<view class="cloumnlist">
+						{{items}}
+					</view>
+					<view class="bottomLine" />
+				</view>
+			</uni-collapse-item>
+		</uni-collapse>
+		<uni-collapse @change="change">
+			<uni-collapse-item title="注意事项">
+				<view class="adBaseView2" v-for="items in noticeList" :key="items">
+					<view class="cloumnlist">
+						{{items}}
+					</view>
+					<view class="bottomLine" />
+				</view>
+			</uni-collapse-item>
+		</uni-collapse>
+		<uni-collapse @change="change">
+			<uni-collapse-item title="查体项目">
+				<view class="adBaseView2" v-for="items in itemList" :key="items">
+					<view class="cloumnlist">
+						{{items}}
+					</view>
+					<view class="bottomLine" />
+				</view>
+			</uni-collapse-item>
+		</uni-collapse>
+		
+		
+		<button class="button-cell2" @click="call()">联系电话</button> 
 	</view>
 
 
 </template>
 
 <script>
+	import uniCollapse from '@/components/uni-collapse/uni-collapse.vue'
+	import uniCollapseItem from '@/components/uni-collapse-item/uni-collapse-item.vue'
 	import {
 		uniList
 	} from '@/components/uni-list/uni-list.vue'
@@ -63,6 +90,8 @@
 	export default {
 		components: {
 			uniList,
+			uniCollapse,
+			uniCollapseItem,
 			uniListItem
 		},
 		data() {
@@ -71,7 +100,7 @@
 				checkName: '',
 				projectName: '',
 				checkPlace: '',
-				checkTelephone:'',
+				checkTelephone: '',
 				promptList: [],
 				noticeList: [],
 				itemList: [],
@@ -82,14 +111,29 @@
 			this.fetchData()
 		},
 		methods: {
-			change(e){
+			call() {
+				uni.makePhoneCall({
+						// 手机号
+						phoneNumber: this.checkTelephone,
+						// 成功回调
+						success: (res) => {
+							console.log('调用成功!')
+						},
+						// 失败回调
+						fail: (res) => {
+							console.log('调用失败!')
+							this.call_phone();//重复调用一次
+						}
+					});
+			},
+			change(e) {
 				console.log(e)
 			},
 			switchChange(e) {
-				
+
 				if (e.value === true) {
-					
-					console.log('qqqq'+this.itemList)
+
+					console.log('qqqq' + this.itemList)
 					this.showProject = true
 				} else if (e.value === false) {
 					this.showProject = false
