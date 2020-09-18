@@ -29,6 +29,21 @@ export function physicalexaminationApplySubmit(data) {
 		data: data
 	})
 }
+export function physicalexaminationApplyView(data) {
+	return request.request({
+		url: '/medicare/physicalexaminationApplyView',
+		method: 'POST',
+		data: data
+	})
+}
+export function physicalexaminationReportView(data) {
+	return request.request({
+		url: '/medicare/physicalexaminationReportView',
+		method: 'POST',
+		data: data
+	})
+}
+
 
 export function studentMedicareApply(data) {
 	return request.request({

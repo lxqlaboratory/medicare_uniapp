@@ -8,7 +8,7 @@
 		<view class="adBaseView">
 			<view class="adRowView2">
 				<view class="headView">您的姓名：</view>
-				<view class="input-text">李学庆</view>
+				<view class="input-text">{{perName}}</view>
 			</view>
 			<view class="bottomLine" />
 		</view>
@@ -16,7 +16,7 @@
 		<view class="adBaseView">
 			<view class="adRowView2">
 				<view class="headView">体检单位：</view>
-				<view class="input-text">齐鲁医院-济南</view>
+				<view class="input-text">{{checkName}}</view>
 			</view>
 			<view class="bottomLine" />
 		</view>
@@ -24,7 +24,7 @@
 		<view class="adBaseView">
 			<view class="adRowView2">
 				<view class="headView">套餐类型：</view>
-				<view class="input-text">套餐4</view>
+				<view class="input-text">{{projectName}}</view>
 			</view>
 			<view class="bottomLine" />
 		</view>
@@ -32,7 +32,7 @@
 		<view class="adBaseView">
 			<view class="adRowView2">
 				<view class="headView">查体地点：</view>
-				<view class="input-text">济南市历下区文化西路107号</view>
+				<view class="input-text">{{checkPlace}}</view>
 			</view>
 			<view class="bottomLine" />
 		</view>
@@ -56,6 +56,9 @@
 	import {
 		uniListItem
 	} from '@/components/uni-list-item/uni-list-item.vue'
+	import {
+		physicalexaminationApplyView
+	} from '@/api/medicare.js'
 
 	export default {
 		components: {
@@ -64,16 +67,60 @@
 		},
 		data() {
 			return {
-				
+				perName: '',
+				checkName: '',
+				projectName: '',
+				checkPlace: '',
+				checkTelephone:'',
+				promptList: [],
+				noticeList: [],
+				itemList: [],
+				year: '',
 			}
 		},
+		onShow: function(e) {
+			this.fetchData()
+		},
 		methods: {
+			change(e){
+				console.log(e)
+			},
 			switchChange(e) {
-				console.log(e.value)
-			}
+				
+				if (e.value === true) {
+					
+					console.log('qqqq'+this.itemList)
+					this.showProject = true
+				} else if (e.value === false) {
+					this.showProject = false
+				}
+			},
+			fetchData() {
+
+				physicalexaminationApplyView().then(res => {
+					this.showProject = false
+					if (res.re == 1) {
+						this.perName = res.data.perName
+						this.checkName = res.data.checkName
+						this.checkPlace = res.data.checkPlace
+						this.checkTelephone = res.data.checkTelephone
+						this.projectName = res.data.projectName
+						this.promptList = res.data.promptList
+						this.noticeList = res.data.noticeList
+						this.itemList = res.data.itemList
+						this.isLoading = false
+					} else {
+						console.log(res)
+						this.isLoading = false
+					}
+				}).catch(err => {
+
+				})
+			},
 		}
 	}
 </script>
 
 <style>
+
 </style>
