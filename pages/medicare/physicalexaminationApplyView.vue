@@ -38,9 +38,9 @@
 		</view>
 		<uni-collapse @change="change">
 			<uni-collapse-item title="友情提示">
-				<view class="adBaseView2" v-for="items in promptList" :key="items">
+				<view class="adBaseView2" v-for="(items,index) in promptList" :key="index">
 					<view class="cloumnlist">
-						{{items}}
+						{{index+1}}.{{items}}
 					</view>
 					<view class="bottomLine" />
 				</view>
@@ -48,9 +48,9 @@
 		</uni-collapse>
 		<uni-collapse @change="change">
 			<uni-collapse-item title="注意事项">
-				<view class="adBaseView2" v-for="items in noticeList" :key="items">
+				<view class="adBaseView2" v-for="(items,index) in noticeList" :key="index">
 					<view class="cloumnlist">
-						{{items}}
+						{{index+1}}.{{items}}
 					</view>
 					<view class="bottomLine" />
 				</view>
@@ -67,8 +67,12 @@
 			</uni-collapse-item>
 		</uni-collapse>
 		
+		<button  type='primary'  class='s3bu' style="margin-top:15px;background-color:rgb(18,150,219)" @click="call()">
+			<image src="/static/image/icon_clinic_tel_l.png"></image>
+			<view>联系电话</view>
+		</button>
 		
-		<button class="button-cell2" @click="call()">联系电话</button> 
+		<!-- <button class="button-cell2" @click="call()">联系电话</button> -->
 	</view>
 
 
@@ -165,6 +169,19 @@
 	}
 </script>
 
-<style>
-
+<style scoped>
+.s3bu{
+  line-height: 5vh;
+  width: 40vw;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.s3bu image{
+  margin-right: 10px;
+  height: 4vh;
+  width: 4vh;
+}
 </style>
