@@ -252,21 +252,21 @@
 			},
 			doSubmit() {
 				// console.log(this.payModels[this.form.modelPay])
-				if (!this.form.mobilePhone){
+				if (this.form.mobilePhone === undefined || this.form.mobilePhone===''){
 			        uni.showModal({
 			        title: '提示',
 					content: '联系方式不能为空',
 					showCancel: false
 					});
 				}
-				else if (!this.form.perBirth){
+				else if (this.form.perBirth === undefined || this.form.perBirth==='' ){
 					uni.showModal({
 					title: '提示',
 					content: '出生日期不能为空',
 					showCancel: false
 				}); 
 				}
-				else if (this.form.modelPay === 0){
+				else if (this.form.modelPay === '0'){
 					uni.showModal({
 					title: '提示',
 					content: '请选择缴费方式',
