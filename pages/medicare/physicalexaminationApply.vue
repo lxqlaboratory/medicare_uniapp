@@ -1,11 +1,13 @@
 <template>
 	<view>
-		<view>
+		<view v-if="isPhysicalClose===1">
 			<view class="section2">
-						   <view class="stitle" style="color: #7acfa6;">
-							  个人信息
-						   </view>
+				<view class="stitle" style="color: #7acfa6;">
+					查体报名时间已关闭，不能再报名！
+				</view>
 			</view>
+		</view>
+		<view v-else>
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">身份证号</view>
@@ -132,28 +134,17 @@
 				<view class="bottomLine" />
 			</view>
 			<uni-collapse @change="change">
-			<uni-collapse-item title="展开查看查体项" >
-			        <view class="adBaseView2" v-for="items in itemList" :key="items">
-			        	<view class="cloumnlist">
-			        		{{items}}
-			        	</view>
-			        	<view class="bottomLine" />
-			        </view>
-			    </uni-collapse-item>
-				
-				</uni-collapse>
-				
-			<!-- <uni-list>
-				<uni-list-item :show-switch="true" title="展开查看套餐详细" @switchChange="switchChange" />
-			</uni-list> -->
-			<!-- <view v-if="showProject">
-				<view class="adBaseView2" v-for="items in itemList" :key="items">
-					<view class="cloumnlist">
-						{{items}}
+				<uni-collapse-item title="展开查看查体项">
+					<view class="adBaseView2" v-for="items in itemList" :key="items">
+						<view class="cloumnlist">
+							{{items}}
+						</view>
+						<view class="bottomLine" />
 					</view>
-					<view class="bottomLine" />
-				</view>
-			</view> -->
+				</uni-collapse-item>
+
+			</uni-collapse>
+
 			<button class="button-cell2" @click="doSubmit">立即报名</button>
 		</view>
 	</view>
@@ -222,7 +213,7 @@
 				checkUnitList: [],
 				projectList: [],
 				itemList: [],
-				isPhysicalClose: '',
+				isPhysicalClose: 0,
 				year: '',
 
 			}
@@ -239,14 +230,14 @@
 			this.fetchData()
 		},
 		methods: {
-			change(e){
+			change(e) {
 				console.log(e)
 			},
 			switchChange(e) {
-				
+
 				if (e.value === true) {
-					
-					console.log('qqqq'+this.itemList)
+
+					console.log('qqqq' + this.itemList)
 					this.showProject = true
 				} else if (e.value === false) {
 					this.showProject = false
@@ -257,6 +248,8 @@
 				physicalexaminationApply().then(res => {
 					this.showProject = false
 					if (res.re == 1) {
+						this.isPhysicalClose = res.data.isPhysicalClose
+						console.log(this.isPhysicalClose)
 						this.form = res.data.form
 						if (this.form.genderCode === '1') {
 							this.genderIndex = 0
@@ -274,7 +267,6 @@
 						this.projectList = res.data.projectList
 						this.itemList = res.data.itemList
 						console.log(this.itemList)
-						this.isPhysicalClose = res.data.isPhysicalClose
 						this.isLoading = false
 					} else {
 						console.log(res)
@@ -332,23 +324,48 @@
 				})
 			},
 			doSubmit() {
-				physicalexaminationApplySubmit({
-					form: this.form,
-				}).then(res => {
-					console.log(res)
-					if (res.re == '1') {
-						uni.showModal({
-							title: '提示',
-							content: '保存成功'
-						});
-					} else {
-						this.isLoading = false
-						uni.showModal({
-							title: '提示',
-							content: '保存失败'
-						});
-					}
-				}).catch(err => {})
+				if(this.form.mobilePhone===undefined || this.form.mobilePhone==='') {
+					this.isLoading = false
+					uni.showModal({
+						title: '提示',
+						content: '手机号不能为空！',
+						showCancel: false,
+					});					
+				}else if(this.form.checkUnit==='0000' || this.form.projectId==='0') {
+					this.isLoading = false
+					uni.showModal({
+						title: '提示',
+						content: '没有选择查体单位和查体套餐，不能提交！',
+						showCancel: false,
+					});					
+				}else {
+					physicalexaminationApplySubmit({
+						form: this.form,
+					}).then(res => {
+						console.log(res)
+						if (res.re == '1') {
+							uni.showModal({
+								title: '提示',
+								content: '保存成功',
+								showCancel: false,
+								success: function(res) {
+									if (res.confirm) {
+										uni.navigateTo({
+											url: './physicalexaminationApplyView',
+										})
+									}
+								}
+
+							});
+						} else {
+							this.isLoading = false
+							uni.showModal({
+								title: '提示',
+								content: '保存失败'
+							});
+						}
+					}).catch(err => {})
+				}
 			},
 			getDate(type) {
 				const date = new Date();

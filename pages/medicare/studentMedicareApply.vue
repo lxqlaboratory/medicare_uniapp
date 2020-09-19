@@ -281,8 +281,15 @@
 						uni.showModal({
 							title: '提示',
 							content: '保存成功',
-							showCancel: false
-						});
+							showCancel: false,
+							success: function(res) {
+								if (res.confirm) {
+									uni.navigateTo({
+										url: './studentMedicareApplyView',
+									})
+								}
+							}
+						});						
 					} else {
 						this.isLoading = false
 						uni.showModal({
