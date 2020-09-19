@@ -74,9 +74,10 @@
 														})
 												}	
 										else {
+											var errorLength = res2.errorMessageList.length 
 											uni.showModal({
 												title: '提示',
-												content: '账户已经被其他微信绑定，请解绑后再绑定',
+												content: res2.errorMessageList[errorLength-1],
 												success: function(res) {
 													if (res.confirm) {
 														console.log('确定');
