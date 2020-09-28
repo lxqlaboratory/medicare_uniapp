@@ -49,6 +49,12 @@
 			}
 		},
 		{
+			"path": "pages/medicare/collegeMedicareApplyQuery",
+			"style": {
+		
+			}
+		},
+		{
 			"path": "pages/login/login",
 			"style": {
 
