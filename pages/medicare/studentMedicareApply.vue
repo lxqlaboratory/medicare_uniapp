@@ -1,22 +1,22 @@
 <template>
 	<view>
 		<view v-if="isMedicareClose===true">
-			
+
 			<view class="section2">
-						   <view class="stitle">
-							  医保报名已关闭,无法在报名!
-						   </view>
+				<view class="stitle">
+					医保报名已关闭,无法在报名!
+				</view>
 			</view>
 		</view>
-		<view v-else >
-	
-	       <view class="section">
-			   <view class="stitle">
-				   请同学们仔细核对个人信息！选择缴费方式后，点击“提交”即可。如信息有误，请及时联系技术人员修改!
-			   </view>
-		   </view>
+		<view v-else>
 
-		   
+			<view class="section">
+				<view class="stitle">
+					请同学们仔细核对个人信息！选择缴费方式后，点击“提交”即可。如信息有误，请及时联系技术人员修改!
+				</view>
+			</view>
+
+
 			<view class="adBaseView">
 				<view class="adRowView">
 					<view class="headView">学号</view>
@@ -117,7 +117,7 @@
 					<view class="headView">
 						<view class="mustView">*</view>缴费方式
 					</view>
-					<view v-if="form.isFree===true" class="input-text">免费</view>
+					<view v-if="form.isFree===true" class="input-text">form.modelPayName</view>
 					<view v-else class="uni-list">
 						<view class="uni-list-cell">
 							<view class="uni-list-cell-db">
@@ -131,6 +131,7 @@
 				<view class="bottomLine" />
 			</view>
 			<button class="button-cell2" @click="doSubmit()">提交</button>
+			<button class="button-cell2" @click="download()">弃报声明下载</button>
 		</view>
 	</view>
 </template>
@@ -162,31 +163,31 @@
 				start: currentDate,
 				end: currentDate,
 				form: {
-					medicareId:'',
+					medicareId: '',
 					perNum: '',
 					perName: '',
 					perIdCard: '',
 					genderCode: '',
-					perBirth:'',
+					perBirth: '',
 					mobilePhone: '',
-					modelPay:0,
-					modelPayName:'',
-					payStatus:'',
-					collegeNum:'',
-					collegeName:'',
-					majorNum:'',
+					modelPay: 0,
+					modelPayName: '',
+					payStatus: '',
+					collegeNum: '',
+					collegeName: '',
+					majorNum: '',
 					majorName: '',
 					grade: '',
-					perClass:'',
-					cardNum:'',
-					isFree:''
+					perClass: '',
+					cardNum: '',
+					isFree: ''
 				},
-				isFree:false,
-				genderIndex:0,
-				payModels: ['请选择缴费方式','校园卡扣费','现金缴费','弃保'],
+				isFree: false,
+				genderIndex: 0,
+				payModels: ['未选择', '个人缴费', '弃保'],
 				genders: ['男', '女'],
 				year: '',
-				isMedicareClose:false
+				isMedicareClose: false
 			}
 		},
 		computed: {
@@ -252,56 +253,83 @@
 			},
 			doSubmit() {
 				// console.log(this.payModels[this.form.modelPay])
-				if (this.form.mobilePhone === undefined || this.form.mobilePhone===''){
-			        uni.showModal({
-			        title: '提示',
-					content: '联系方式不能为空',
-					showCancel: false
+				if (this.form.mobilePhone === undefined || this.form.mobilePhone === '') {
+					uni.showModal({
+						title: '提示',
+						content: '联系方式不能为空',
+						showCancel: false
 					});
-				}
-				else if (this.form.perBirth === undefined || this.form.perBirth==='' ){
+				} else if (this.form.perBirth === undefined || this.form.perBirth === '') {
 					uni.showModal({
-					title: '提示',
-					content: '出生日期不能为空',
-					showCancel: false
-				}); 
-				}
-				else if (this.form.modelPay === '0'){
+						title: '提示',
+						content: '出生日期不能为空',
+						showCancel: false
+					});
+				} else if (this.form.modelPay === '0') {
 					uni.showModal({
-					title: '提示',
-					content: '请选择缴费方式',
-					showCancel: false
-				}); 
-				}else{
-				studentMedicareApplySubmit({
-					form: this.form,
-				}).then(res => {
-					console.log(res)
-					if (res.re == '1') {
-						uni.showModal({
-							title: '提示',
-							content: '保存成功',
-							showCancel: false,
-							success: function(res) {
-								if (res.confirm) {
-									uni.navigateTo({
-										url: './studentMedicareApplyView',
-									})
+						title: '提示',
+						content: '请选择缴费方式',
+						showCancel: false
+					});
+				} else {
+					studentMedicareApplySubmit({
+						form: this.form,
+					}).then(res => {
+						console.log(res)
+						if (res.re == '1') {
+							uni.showModal({
+								title: '提示',
+								content: '保存成功',
+								showCancel: false,
+								success: function(res) {
+									if (res.confirm) {
+										uni.navigateTo({
+											url: './studentMedicareApplyView',
+										})
+									}
 								}
-							}
-						});						
-					} else {
-						this.isLoading = false
-						uni.showModal({
-							title: '提示',
-							content: '保存失败',
-							showCancel: false
-						});
-					}
-				}).catch(err => {})
-			}
+							});
+						} else {
+							this.isLoading = false
+							uni.showModal({
+								title: '提示',
+								content: '保存失败',
+								showCancel: false
+							});
+						}
+					}).catch(err => {})
+				}
 			},
-		}
+
+			download(year, type) {
+				console.log(year, type)
+				wx.downloadFile({
+					url: getApp().globalData.medicareurl +'/downloads/zyfqybsm.pdf',
+					success: (res) => {
+						if (res.statusCode === 200) {
+							var filePath = res.tempFilePath;
+							console.log(filePath);
+							wx.openDocument({
+								filePath: filePath,
+								success: function(res) {
+									console.log('打开文档成功')
+								},
+								fail: function(res) {
+									console.log(res);
+								},
+								complete: function(res) {
+									console.log(res);
+								}
+							})
+							uni.showToast({
+								title: `下载成功`,
+								icon: 'none'
+							})
+						}
+					}
+				});
+			}
+		},
 	}
 </script>
 
