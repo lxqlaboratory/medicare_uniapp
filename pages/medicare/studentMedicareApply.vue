@@ -1,7 +1,6 @@
 <template>
 	<view>
 		<view v-if="isMedicareClose===true">
-
 			<view class="section2">
 				<view class="stitle">
 					医保报名已关闭,无法在报名!
@@ -12,10 +11,9 @@
 
 			<view class="section">
 				<view class="stitle">
-					请同学们仔细核对个人信息！选择缴费方式后，点击“提交”即可。如信息有误，请及时联系技术人员修改!
+					请仔细核对个人信息！选择缴费方式,若选择弃保请选择已缴保地区，点击“提交”即可，弃保请提交后下载弃保声明。如信息有误请联系学院修改!
 				</view>
 			</view>
-
 
 			<view class="adBaseView">
 				<view class="adRowView">
@@ -130,13 +128,35 @@
 				</view>
 				<view class="bottomLine" />
 			</view>
+			<view v-if="form.modelPay==='2'" class="adBaseView">
+				<view class="adRowView" @click="handleTap('picker1')">
+					<view class="headView">请选择缴保省</view>
+					<view class="input-text">{{form.province}}</view>
+				</view>
+				<view class="adRowView" @click="handleTap('picker2')">
+					<view class="headView">请选择缴保市</view>
+					<view class="input-text">{{form.city}}</view>
+				</view>
+				<view class="adRowView" @click="handleTap('picker3')">
+					<view class="headView">请选择缴保区</view>
+					<view class="input-text">{{form.town}}</view>
+				</view>
+				<lb-picker ref="picker1" mode="multiSelector" :list="list" :level="1" @confirm="confirmProvince">
+				</lb-picker>
+				<lb-picker ref="picker2" mode="multiSelector" :list="list" :level="2" @confirm="confirmCity">
+				</lb-picker>
+				<lb-picker ref="picker3" mode="multiSelector" :list="list" :level="3" @confirm="confirmTown">
+				</lb-picker>
+			</view>
 			<button class="button-cell2" @click="doSubmit()">提交</button>
-			<button class="button-cell2" @click="download()">弃报声明下载</button>
+			<button v-if="form.modelPay==='2'" class="button-cell2" @click="download()">弃保声明下载</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	import LbPicker from '@/components/lb-picker'
+	import areaData from "../../api/base/area-data-min.js"
 	import {
 		uniList
 	} from '@/components/uni-list/uni-list.vue'
@@ -180,8 +200,21 @@
 					grade: '',
 					perClass: '',
 					cardNum: '',
-					isFree: ''
+					isFree: '',
+					province: '',
+					city: '',
+					town: '',
 				},
+				province: '',
+				city: '',
+				town: '',
+				list: areaData,
+				value1: '',
+				value7: '',
+				value8: '',
+				value9: '',
+				value10: '',
+				value11: '',
 				isFree: false,
 				genderIndex: 0,
 				payModels: ['未选择', '个人缴费', '弃保'],
@@ -235,6 +268,26 @@
 			},
 			bindTimeChangePerBirth(e) {
 				this.form.perBirth = e.target.value
+			},
+			handleTap(picker) {
+				this.$refs[picker].show()
+			},
+			confirmProvince(item) {
+
+				this.form.province = item.item[0].label
+				this.value1 = this.sheng
+			},
+			confirmCity(item) {
+				this.value7 = item.item[0].label
+				this.value8 = item.item[1].label
+				this.form.city = this.value7 + '-' + this.value8
+			},
+			confirmTown(item) {
+
+				this.value9 = item.item[0].label
+				this.value10 = item.item[1].label
+				this.value11 = item.item[2].label
+				this.form.town = this.value9 + '-' + this.value10 + '-' + this.value11
 			},
 			getDate(type) {
 				const date = new Date();
@@ -302,9 +355,8 @@
 			},
 
 			download(year, type) {
-				console.log(year, type)
 				wx.downloadFile({
-					url: getApp().globalData.medicareurl +'/downloads/zyfqybsm.pdf',
+					url: getApp().globalData.medicareurl + '/medicare/downloadAbandonMedicareCertificate',
 					success: (res) => {
 						if (res.statusCode === 200) {
 							var filePath = res.tempFilePath;
