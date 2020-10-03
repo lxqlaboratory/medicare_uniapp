@@ -172,6 +172,7 @@
 	export default {
 		components: {
 			uniList,
+			LbPicker,
 			uniListItem
 		},
 		data() {
@@ -357,6 +358,10 @@
 			download(year, type) {
 				wx.downloadFile({
 					url: getApp().globalData.medicareurl + '/medicare/downloadAbandonMedicareCertificate',
+					header: {
+						"Content-Type": "application/json",
+						"Cookie": "JSESSIONID=" + getApp().globalData.vueSessionId
+					},
 					success: (res) => {
 						if (res.statusCode === 200) {
 							var filePath = res.tempFilePath;
