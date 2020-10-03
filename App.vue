@@ -5,8 +5,8 @@
 		globalData: {
 		            vueSessionId: '',
 					dateTime: new Date(),
-				// medicareurl: 'https://enroll.sdu.edu.cn/func'
-						medicareurl: 'http://localhost:8080'
+				medicareurl: 'https://enroll.sdu.edu.cn'
+						// medicareurl: 'http://localhost:8080'
 		        },
 		onLaunch: function() {
 			console.log('App Launch')

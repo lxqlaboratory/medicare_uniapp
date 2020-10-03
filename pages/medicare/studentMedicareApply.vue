@@ -308,7 +308,6 @@
 					success: (res) => {
 						if (res.statusCode === 200) {
 							var filePath = res.tempFilePath;
-							console.log(filePath);
 							wx.openDocument({
 								filePath: filePath,
 								success: function(res) {
