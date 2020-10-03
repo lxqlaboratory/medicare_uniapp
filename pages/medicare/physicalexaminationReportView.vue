@@ -81,6 +81,11 @@
 				wx.downloadFile({
 					url: getApp().globalData.medicareurl + '/medicare/physicalexaminationReportDownload?year=' + year +
 						'&perIdCard=' + this.perIdCard + '&type=' + type,
+						header: {
+							"Content-Type": "application/json",
+							"Cookie": "JSESSIONID=" + getApp().globalData.vueSessionId
+						},
+						
 					success: (res) => {
 						if (res.statusCode === 200) {
 							var filePath = res.tempFilePath;
