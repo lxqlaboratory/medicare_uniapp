@@ -189,4 +189,19 @@
 		font-size: 32upx !important;
 		color: rgb(128, 128, 128);
 	}
+	.s3bu{
+	  line-height: 5vh;
+	  width: 40vw;
+	  border-radius: 5px;
+	  display: flex;
+	  flex-direction: row;
+	  justify-content: center;
+	  align-items: center;
+	}
+	.s3bu image{
+	  margin-right: 10px;
+	  height: 4vh;
+	  width: 4vh;
+	}
+	
 </style>

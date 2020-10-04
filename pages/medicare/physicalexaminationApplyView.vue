@@ -71,8 +71,6 @@
 			<image src="/static/image/icon_clinic_tel_l.png"></image>
 			<view>联系电话</view>
 		</button>
-		
-		<!-- <button class="button-cell2" @click="call()">联系电话</button> -->
 	</view>
 
 
@@ -169,19 +167,5 @@
 	}
 </script>
 
-<style scoped>
-.s3bu{
-  line-height: 5vh;
-  width: 40vw;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-.s3bu image{
-  margin-right: 10px;
-  height: 4vh;
-  width: 4vh;
-}
+<style >
 </style>

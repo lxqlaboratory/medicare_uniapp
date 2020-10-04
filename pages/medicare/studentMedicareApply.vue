@@ -355,7 +355,7 @@
 				}
 			},
 
-			download(year, type) {
+			download() {
 				wx.downloadFile({
 					url: getApp().globalData.medicareurl + '/medicare/downloadAbandonMedicareCertificate',
 					header: {

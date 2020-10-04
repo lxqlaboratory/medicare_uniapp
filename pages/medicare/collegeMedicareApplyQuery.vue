@@ -32,6 +32,9 @@
 			</view>
 			<view class="bottomLine3"></view>
 		</view>
+		<view v-if="studentList.length> 0">
+			<button class="button-cell2" @click="download()">导出学生名单</button>
+		</view>
 		<view v-for="(item,index) in studentList" :key="index">
 			<view class="row">
 				<text class="row-title">学号: </text>
@@ -150,7 +153,37 @@
 					}
 				});
 			},
-		}
+			download() {
+				wx.downloadFile({
+					url: getApp().globalData.medicareurl + '/medicare/exportCollegeMedicareApplyInfoList?year='+this.year + '&perTypeCode='+this.perTypeCode+'&grade='+this.grade+'&collegeNum='+this.collegeNum +'&modelPay='+this.modelPay +'&payStatus='+this.payStatus,
+					header: {
+						"Content-Type": "application/json",
+						"Cookie": "JSESSIONID=" + getApp().globalData.vueSessionId
+					},
+					success: (res) => {
+						if (res.statusCode === 200) {
+							var filePath = res.tempFilePath;
+							wx.openDocument({
+								filePath: filePath,
+								success: function(res) {
+									console.log('打开文档成功')
+								},
+								fail: function(res) {
+									console.log(res);
+								},
+								complete: function(res) {
+									console.log(res);
+								}
+							})
+							uni.showToast({
+								title: `下载成功`,
+								icon: 'none'
+							})
+						}
+					}
+				});
+			}
+		},
 	}
 </script>
 
