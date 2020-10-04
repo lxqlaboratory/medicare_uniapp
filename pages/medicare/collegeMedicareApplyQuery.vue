@@ -39,6 +39,8 @@
 			<view class="row">
 				<text class="row-title">学号: </text>
 				<text>{{item.perNum}}</text>
+				<text v-if="item.modelPay==='0'" class="miniButton2" @click="doApply(item.perNum)">报名</text>
+				<text v-else class="miniButton2" @click="doApply(item.perNum)">修改</text>
 			</view>
 			<view class="row">
 				<text class="row-title">姓名: </text>
@@ -123,6 +125,11 @@
 					this.studentList = res.data.studentList
 					console.log(this.statisticsList)
 				}).catch(err => {})
+			},
+			doApply(perNum) {
+				uni.navigateTo({
+					url: './studentMedicareApply?perNum=' + perNum 
+				})
 			},
 			doDetail(modelPay, payStatus) {
 				collegeMedicareApplyInfoList({
