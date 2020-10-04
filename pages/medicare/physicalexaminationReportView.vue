@@ -77,7 +77,6 @@
 		},
 		methods: {
 			donlowdExamReport(year, type) {
-				console.log(year, type)
 				wx.downloadFile({
 					url: getApp().globalData.medicareurl + '/medicare/physicalexaminationReportDownload?year=' + year +
 						'&perIdCard=' + this.perIdCard + '&type=' + type,
