@@ -227,9 +227,6 @@
 				return this.getDate('end');
 			}
 		},
-		onShow: function(e) {
-			this.fetchData()
-		},
 		onLoad(option) {
 			this.form.perNum = option.perNum
 			this.isCollege = option.isCollege
@@ -251,7 +248,7 @@
 			fetchData() {
 
 				physicalexaminationApply({
-					perNum:this.perNum
+					perNum:this.form.perNum
 				}).then(res => {
 					this.showProject = false
 					if (res.re == 1) {
