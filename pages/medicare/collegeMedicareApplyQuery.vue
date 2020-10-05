@@ -128,7 +128,7 @@
 			},
 			doApply(perNum) {
 				uni.navigateTo({
-					url: './studentMedicareApply?perNum=' + perNum 
+					url: './studentMedicareApply?isCollege=1&perNum=' + perNum + '&perTypeCode=' + this.perTypeCode
 				})
 			},
 			doDetail(modelPay, payStatus) {
