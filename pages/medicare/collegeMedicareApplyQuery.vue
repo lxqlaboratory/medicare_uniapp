@@ -22,12 +22,12 @@
 			</view>
 			<view class="row">
 				<text class="row-title">已缴费人数: </text>
-				<text v-if="item.count1==='0'">{{item.count1}}</text>
+				<text v-if="item.count1===0">{{item.count1}}</text>
 				<text v-else style="color: #e64340;" @click="doDetail(item.modelPay,'1')">{{item.count1}}</text>
 			</view>
 			<view class="row">
 				<text class="row-title">未缴费人数: </text>
-				<text v-if="item.count0==='0'">{{item.count0}}</text>
+				<text v-if="item.count0===0">{{item.count0}}</text>
 				<text v-else style="color: #e64340;" @click="doDetail(item.modelPay,'0')">{{item.count0}}</text>
 			</view>
 			<view class="bottomLine3"></view>
