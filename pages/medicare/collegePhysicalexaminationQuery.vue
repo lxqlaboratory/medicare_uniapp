@@ -7,7 +7,7 @@
 			</view>
 			<view class="row">
 				<text class="row-title">申请人数: </text>
-				<text v-if="item.count==='0'">{{item.count}}</text>
+				<text v-if="item.count===0">{{item.count}}</text>
 				<text v-else style="color: #e64340;" @click="doDetail(item.checkUnit)">{{item.count}}</text>
 			</view>
 			<view class="bottomLine3"></view>
