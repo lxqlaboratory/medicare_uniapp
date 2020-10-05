@@ -86,7 +86,7 @@
 			},
 			doApply(perNum) {
 				uni.navigateTo({
-					url: './physicalexaminationApply?perNum=' + perNum 
+					url: './physicalexaminationApply?isCollege=1&perNum=' + perNum 
 				})
 			},
 			call(mobilePhone) {
