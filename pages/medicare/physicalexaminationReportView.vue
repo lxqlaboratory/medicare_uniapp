@@ -91,6 +91,8 @@
 							console.log(filePath);
 							wx.openDocument({
 								filePath: filePath,
+								fileType: 'pdf',
+								showMenu:true,
 								success: function(res) {
 									console.log('打开文档成功')
 								},
