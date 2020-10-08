@@ -22,12 +22,12 @@
 			</view>
 			<view class="row">
 				<text class="row-title">已缴费人数: </text>
-				<text v-if="item.count1==='0'">{{item.count1}}</text>
+				<text v-if="item.count1===0">{{item.count1}}</text>
 				<text v-else style="color: #e64340;" @click="doDetail(item.modelPay,'1')">{{item.count1}}</text>
 			</view>
 			<view class="row">
 				<text class="row-title">未缴费人数: </text>
-				<text v-if="item.count0==='0'">{{item.count0}}</text>
+				<text v-if="item.count0===0">{{item.count0}}</text>
 				<text v-else style="color: #e64340;" @click="doDetail(item.modelPay,'0')">{{item.count0}}</text>
 			</view>
 			<view class="bottomLine3"></view>
@@ -39,6 +39,8 @@
 			<view class="row">
 				<text class="row-title">学号: </text>
 				<text>{{item.perNum}}</text>
+				<text v-if="item.modelPay==='0'" class="miniButton2" @click="doApply(item.perNum)">报名</text>
+				<text v-else class="miniButton2" @click="doApply(item.perNum)">修改</text>
 			</view>
 			<view class="row">
 				<text class="row-title">姓名: </text>
@@ -123,6 +125,11 @@
 					this.studentList = res.data.studentList
 					console.log(this.statisticsList)
 				}).catch(err => {})
+			},
+			doApply(perNum) {
+				uni.navigateTo({
+					url: './studentMedicareApply?isCollege=1&perNum=' + perNum + '&perTypeCode=' + this.perTypeCode
+				})
 			},
 			doDetail(modelPay, payStatus) {
 				collegeMedicareApplyInfoList({

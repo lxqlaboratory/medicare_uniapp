@@ -203,5 +203,33 @@
 	  height: 4vh;
 	  width: 4vh;
 	}
+	.miniButton2{
+		float: right;
+				 	justify-content: right;
+		   font-size: medium;
+		  		  margin-right: 10px;
+		  
+		  		    border-radius: 5px;
+		  		 
+		  		    color: #e64340;
+		  		    background-color: #f8f8f8;
+		    padding-left: 14px;
+		    padding-right: 14px;
+		    box-sizing: border-box;
+		 border: 1upx #e64340 solid;
 	
+
+	
+	}
+	.row-title {
+	
+		font-size: medium;
+		margin-right: 10px;
+	}
+	.row {
+		height: auto;
+		padding: 8px;
+		weight: 100%;
+		background-color: #FFFFFF;
+	}	
 </style>

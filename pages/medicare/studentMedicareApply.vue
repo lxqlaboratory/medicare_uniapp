@@ -221,7 +221,9 @@
 				payModels: ['未选择', '个人缴费', '弃保'],
 				genders: ['男', '女'],
 				year: '',
-				isMedicareClose: false
+				isMedicareClose: false,
+				isCollege:'0',
+				perTypeCode:'1',
 			}
 		},
 		computed: {
@@ -232,12 +234,17 @@
 				return this.getDate('end');
 			}
 		},
-		onShow: function(e) {
+		onLoad(option) {
+			this.form.perNum = option.perNum
+			this.isCollege = option.isCollege
+			this.perTypeCode = option.perTypeCode
 			this.fetchData()
 		},
 		methods: {
 			fetchData() {
-				studentMedicareApply().then(res => {
+				studentMedicareApply({
+					perNum:this.form.perNum,
+				}).then(res => {
 					if (res.re == 1) {
 						this.form = res.data.form
 						if (this.form.genderCode === '1') {
@@ -331,15 +338,22 @@
 					}).then(res => {
 						console.log(res)
 						if (res.re == '1') {
+							var flag = this
 							uni.showModal({
 								title: '提示',
 								content: '保存成功',
 								showCancel: false,
 								success: function(res) {
 									if (res.confirm) {
-										uni.navigateTo({
-											url: './studentMedicareApplyView',
-										})
+										if(flag.isCollege==='1') {
+											uni.navigateTo({
+												url: './collegeMedicareApplyQuery?perTypeCode='+flag.perTypeCode,
+											})											
+										}else {
+											uni.navigateTo({
+												url: './studentMedicareApplyView',
+											})
+										}
 									}
 								}
 							});

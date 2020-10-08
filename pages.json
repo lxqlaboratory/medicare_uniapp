@@ -37,6 +37,12 @@
 			}
 		},
 		{
+			"path": "pages/medicare/collegePhysicalExaminationQuery",
+			"style": {
+		
+			}
+		},
+		{
 			"path": "pages/medicare/studentMedicareApply",
 			"style": {
 		

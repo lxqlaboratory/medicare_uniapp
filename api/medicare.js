@@ -43,6 +43,20 @@ export function physicalexaminationReportView(data) {
 		data: data
 	})
 }
+export function collegePhysicalExaminationQuery(data) {
+	return request.request({
+		url: '/medicare/collegePhysicalExaminationQuery',
+		method: 'POST',
+		data: data
+	})
+}
+export function collegePhysicalExaminationInfoList(data) {
+	return request.request({
+		url: '/medicare/collegePhysicalExaminationInfoList',
+		method: 'POST',
+		data: data
+	})
+}
 
 
 export function studentMedicareApply(data) {

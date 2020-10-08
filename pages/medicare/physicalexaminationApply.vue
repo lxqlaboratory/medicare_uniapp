@@ -215,6 +215,7 @@
 				itemList: [],
 				isPhysicalClose: 0,
 				year: '',
+				isCollege:'0'
 
 			}
 		},
@@ -226,7 +227,9 @@
 				return this.getDate('end');
 			}
 		},
-		onShow: function(e) {
+		onLoad(option) {
+			this.form.perNum = option.perNum
+			this.isCollege = option.isCollege
 			this.fetchData()
 		},
 		methods: {
@@ -237,7 +240,6 @@
 
 				if (e.value === true) {
 
-					console.log('qqqq' + this.itemList)
 					this.showProject = true
 				} else if (e.value === false) {
 					this.showProject = false
@@ -245,7 +247,9 @@
 			},
 			fetchData() {
 
-				physicalexaminationApply().then(res => {
+				physicalexaminationApply({
+					perNum:this.form.perNum
+				}).then(res => {
 					this.showProject = false
 					if (res.re == 1) {
 						this.isPhysicalClose = res.data.isPhysicalClose
@@ -344,15 +348,22 @@
 					}).then(res => {
 						console.log(res)
 						if (res.re == '1') {
+							var flag = this
 							uni.showModal({
 								title: '提示',
 								content: '保存成功',
 								showCancel: false,
 								success: function(res) {
 									if (res.confirm) {
+										if(flag.isCollege==='1') {
+											uni.navigateTo({
+												url: './collegePhysicalExaminationQuery',
+											})											
+										}else {
 										uni.navigateTo({
 											url: './physicalexaminationApplyView',
 										})
+										}
 									}
 								}
 
