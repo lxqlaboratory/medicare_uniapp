@@ -381,6 +381,8 @@
 							var filePath = res.tempFilePath;
 							wx.openDocument({
 								filePath: filePath,
+								fileType: 'pdf',
+								showMenu:true,
 								success: function(res) {
 									console.log('打开文档成功')
 								},
