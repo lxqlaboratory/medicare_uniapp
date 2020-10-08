@@ -9,7 +9,7 @@
 		    <view class="login-form">
 		      <view class="input-group ">
 		        <text class="input-label">帐号</text>
-		        <input  id="userid"  v-model="loginName" placeholder="请输入您的工号"  />
+		        <input  id="userid"  v-model="loginName" placeholder="请输入您的学号或工号"  />
 		      </view>
 		            
 		    </view>
