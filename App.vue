@@ -6,7 +6,7 @@
 		            vueSessionId: '',
 					dateTime: new Date(),
 
-				medicareurl: 'https://enroll.sdu.edu.cn/func'
+				medicareurl: 'https://jkct.sdu.edu.cn/func'
 
 					// medicareurl: 'http://localhost:8080/func'
 

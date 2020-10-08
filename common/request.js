@@ -3,7 +3,7 @@ import Request from '@/request/index.js'
 
 // 切换baseUrl 
 const config = {
-	baseUrl: 'https://enroll.sdu.edu.cn/func',
+	baseUrl: 'https://jkct.sdu.edu.cn/func',
     // baseUrl: 'http://localhost:8080/func',
 	header: {"Content-Type": "application/json",
 	},
@@ -24,7 +24,7 @@ const reqInterceptor = async (options) => {
 	// 	options.data={}
 	// }
 	// if(options.url != 'http://localhost:8080/func/auth/webLogin')
-	if(options.url != 'https://enroll.sdu.edu.cn/func/auth/webLogin')
+	if(options.url != 'https://jkct.sdu.edu.cn/func/auth/webLogin')
     {options.header= {"Content-Type": "application/json",
 	"Cookie":"JSESSIONID="+getApp().globalData.vueSessionId}
 
