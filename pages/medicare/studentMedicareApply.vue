@@ -222,8 +222,8 @@
 				genders: ['男', '女'],
 				year: '',
 				isMedicareClose: false,
-				isCollege:'0',
-				perTypeCode:'1',
+				isCollege: '0',
+				perTypeCode: '1',
 			}
 		},
 		computed: {
@@ -243,7 +243,7 @@
 		methods: {
 			fetchData() {
 				studentMedicareApply({
-					perNum:this.form.perNum,
+					perNum: this.form.perNum,
 				}).then(res => {
 					if (res.re == 1) {
 						this.form = res.data.form
@@ -266,7 +266,7 @@
 			},
 			bindPickerGenderChange(e) {
 				this.genderIndex = e.target.value
-				if (this.genderIndex === 0)
+				if (this.genderIndex === '0')
 					this.form.genderCode = '1';
 				else
 					this.form.genderCode = '2';
@@ -345,11 +345,11 @@
 								showCancel: false,
 								success: function(res) {
 									if (res.confirm) {
-										if(flag.isCollege==='1') {
+										if (flag.isCollege === '1') {
 											uni.navigateTo({
-												url: './collegeMedicareApplyQuery?perTypeCode='+flag.perTypeCode,
-											})											
-										}else {
+												url: './collegeMedicareApplyQuery?perTypeCode=' + flag.perTypeCode,
+											})
+										} else {
 											uni.navigateTo({
 												url: './studentMedicareApplyView',
 											})
@@ -382,7 +382,7 @@
 							wx.openDocument({
 								filePath: filePath,
 								fileType: 'pdf',
-								showMenu:true,
+								showMenu: true,
 								success: function(res) {
 									console.log('打开文档成功')
 								},
