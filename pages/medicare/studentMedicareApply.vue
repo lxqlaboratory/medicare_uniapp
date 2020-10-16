@@ -115,7 +115,7 @@
 					<view class="headView">
 						<view class="mustView">*</view>缴费方式
 					</view>
-					<view v-if="form.isFree===true" class="input-text">form.modelPayName</view>
+					<view v-if="form.isFree===true" class="input-text">{{form.modelPayName}}</view>
 					<view v-else class="uni-list">
 						<view class="uni-list-cell">
 							<view class="uni-list-cell-db">
@@ -255,7 +255,7 @@
 						this.isMedicareClose = res.data.isMedicareClose
 						this.isFee = res.data.isFee
 						this.isLoading = false
-						console.log(this.isMedicareClose)
+						console.log(this.form.isFree)
 					} else {
 						console.log(res)
 						this.isLoading = false
@@ -318,6 +318,18 @@
 					uni.showModal({
 						title: '提示',
 						content: '联系方式不能为空',
+						showCancel: false
+					});
+				} else if (this.form.perIdCard === undefined || this.form.perIdCard === '') {
+					uni.showModal({
+						title: '提示',
+						content: '身份证号不能为空',
+						showCancel: false
+					});
+				} else if ((this.form.majorName === undefined ||this.form.majorName === '') && (this.form.perClass === undefined || this.form.perClass === '')) {
+					uni.showModal({
+						title: '提示',
+						content: '专业和班级不能同时为空',
 						showCancel: false
 					});
 				} else if (this.form.perBirth === undefined || this.form.perBirth === '') {
