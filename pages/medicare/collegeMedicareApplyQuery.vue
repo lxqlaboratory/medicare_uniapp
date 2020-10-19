@@ -132,13 +132,15 @@
 				})
 			},
 			doDetail(modelPay, payStatus) {
+				this.modelPay = modelPay
+				this.payStatus = payStatus
 				collegeMedicareApplyInfoList({
 					perTypeCode: this.perTypeCode,
 					year: this.year,
 					collegeNum: this.collegeNum,
 					grade: this.grade,
-					modelPay: modelPay,
-					payStatus: payStatus,
+					modelPay: this.modelPay,
+					payStatus: this.payStatus,
 				}).then(res => {
 					this.studentList = res.data
 				}).catch(err => {
