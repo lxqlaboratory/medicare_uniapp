@@ -3,8 +3,8 @@ import Request from '@/request/index.js'
 
 // 切换baseUrl 
 const config = {
-	baseUrl: 'https://jkct.sdu.edu.cn/func',
-    // baseUrl: 'http://localhost:8080/func',
+	//baseUrl: 'https://jkct.sdu.edu.cn/func',
+     baseUrl: 'http://localhost:8080/func',
 	header: {"Content-Type": "application/json",
 	},
 	cancelReject: {
@@ -18,13 +18,8 @@ const config = {
 }
 
 const reqInterceptor = async (options) => {
-	//options.url = options.url+'?vueSessionId='+getApp().globalData.vueSessionId+''
-	// console.log(getApp().globalData.vueSessionId)
-    //    if(!options.data){
-	// 	options.data={}
-	// }
-	// if(options.url != 'http://localhost:8080/func/auth/webLogin')
-	if(options.url != 'https://jkct.sdu.edu.cn/func/auth/webLogin')
+	if(options.url != 'http://localhost:8080/func/auth/webLogin')
+	//if(options.url != 'https://jkct.sdu.edu.cn/func/auth/webLogin')
     {options.header= {"Content-Type": "application/json",
 	"Cookie":"JSESSIONID="+getApp().globalData.vueSessionId}
 
