@@ -3,13 +3,8 @@ import Request from '@/request/index.js'
 
 // 切换baseUrl 
 const config = {
-<<<<<<< HEAD
-	// baseUrl: 'https://jkct.sdu.edu.cn/func',
-    baseUrl: 'http://localhost:8080/func',
-=======
 	//baseUrl: 'https://jkct.sdu.edu.cn/func',
      baseUrl: 'http://localhost:8080/func',
->>>>>>> 4b9a8cd02693af954a08ea13c728989b66d746bd
 	header: {"Content-Type": "application/json",
 	},
 	cancelReject: {
@@ -23,7 +18,6 @@ const config = {
 }
 
 const reqInterceptor = async (options) => {
-<<<<<<< HEAD
 	//options.url = options.url+'?vueSessionId='+getApp().globalData.vueSessionId+''
 	// console.log(getApp().globalData.vueSessionId)
     //    if(!options.data){
@@ -31,10 +25,6 @@ const reqInterceptor = async (options) => {
 	// }
 	if(options.url != 'http://localhost:8080/func/auth/webLogin')
 	// if(options.url != 'https://jkct.sdu.edu.cn/func/auth/webLogin')
-=======
-	if(options.url != 'http://localhost:8080/func/auth/webLogin')
-	//if(options.url != 'https://jkct.sdu.edu.cn/func/auth/webLogin')
->>>>>>> 4b9a8cd02693af954a08ea13c728989b66d746bd
     {options.header= {"Content-Type": "application/json",
 	"Cookie":"JSESSIONID="+getApp().globalData.vueSessionId}
 

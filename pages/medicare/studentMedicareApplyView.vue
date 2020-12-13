@@ -90,6 +90,13 @@
 				</view>
 				<view class="bottomLine" />
 			</view>
+			<view class="adBaseView">
+				<view class="adRowView">
+					<view class="headView">流水号</view>
+					<view class="input-text">{{form.insuredNumber}}</view>
+				</view>
+				<view class="bottomLine" />
+			</view>
 		</view>
 	</view>
 </template>
@@ -110,6 +117,7 @@
 					perBirth:'',
 					mobilePhone: '',
 					modelPayName:'',
+					insuredNumber: '',
 					payStatus:'',
 					collegeNum:'',
 					collegeName:'',
