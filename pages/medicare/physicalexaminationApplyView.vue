@@ -37,6 +37,16 @@
 			<view class="bottomLine" />
 		</view>
 		<uni-collapse @change="change">
+			<uni-collapse-item :title="filterKey">
+				<view class="adBaseView2" >
+					<view class="cloumnlist">
+					  {{projectSet}}
+					</view>
+					<view class="bottomLine" />
+				</view>
+			</uni-collapse-item>
+		</uni-collapse>
+		<uni-collapse @change="change">
 			<uni-collapse-item title="友情提示">
 				<view class="adBaseView2" v-for="(items,index) in promptList" :key="index">
 					<view class="cloumnlist">
@@ -46,6 +56,7 @@
 				</view>
 			</uni-collapse-item>
 		</uni-collapse>
+	
 		<uni-collapse @change="change">
 			<uni-collapse-item title="注意事项">
 				<view class="adBaseView2" v-for="(items,index) in noticeList" :key="index">
@@ -100,8 +111,11 @@
 			return {
 				perName: '',
 				checkName: '',
+				filterKey: '',
 				projectName: '',
 				checkPlace: '',
+				projectList: [],
+				projectSet: '',
 				checkTelephone: '',
 				promptList: [],
 				noticeList: [],
@@ -154,7 +168,11 @@
 						this.promptList = res.data.promptList
 						this.noticeList = res.data.noticeList
 						this.itemList = res.data.itemList
+						
 						this.isLoading = false
+						this.projectList =  res.data.projectOptionList[1]
+						this.filterKey = this.projectList[0].label
+						this.projectSet = this.projectList[0].enLabel
 					} else {
 						console.log(res)
 						this.isLoading = false
