@@ -36,8 +36,8 @@
 			</view>
 			<view class="bottomLine" />
 		</view>
-		<uni-collapse @change="change">
-			<uni-collapse-item :title="filterKey">
+		<uni-collapse @change="change" v-show="showProject1">
+			<uni-collapse-item :title="projectAddName">
 				<view class="adBaseView2" >
 					<view class="cloumnlist">
 					  {{projectSet}}
@@ -109,11 +109,13 @@
 		},
 		data() {
 			return {
+				showProject1: false,
 				perName: '',
 				checkName: '',
 				filterKey: '',
 				projectName: '',
 				checkPlace: '',
+				projectAddName: '',
 				projectList: [],
 				projectSet: '',
 				checkTelephone: '',
@@ -170,9 +172,13 @@
 						this.itemList = res.data.itemList
 						
 						this.isLoading = false
-						this.projectList =  res.data.projectOptionList[1]
-						this.filterKey = this.projectList[0].label
-						this.projectSet = this.projectList[0].enLabel
+					    this.projectAddName = res.data.projectAddName
+						this.projectSet = res.data.projectSet
+						if(this.projectAddName === ''||this.projectSet===''||this.projectAddName === undefined||this.projectSet===undefined){
+							this.showProject1 = false
+						}else{
+							this.showProject1 = true
+						}
 					} else {
 						console.log(res)
 						this.isLoading = false

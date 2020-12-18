@@ -3,7 +3,7 @@ import Request from '@/request/index.js'
 
 // 切换baseUrl 
 const config = {
-	//baseUrl: 'https://jkct.sdu.edu.cn/func',
+	// baseUrl: 'https://jkct.sdu.edu.cn/func',
      baseUrl: 'http://localhost:8080/func',
 	header: {"Content-Type": "application/json",
 	},
